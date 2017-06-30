@@ -164,11 +164,14 @@ export default {
   // Original text: "Fetching data…"
   homeFetchingData: '获取数据',
 
-  // Original text: "Welcome on Xen Orchestra!"
-  homeWelcome: '欢迎使用Xen Orchestra',
+  // Original text: "Welcome on vStorage!"
+  homeWelcome: '欢迎使用vStorage',
 
-  // Original text: "Add your XenServer hosts or pools"
-  homeWelcomeText: '添加您的XenServer主机或资源池',
+  // Original text: "File restore"
+  backupFileRestorePage: '文件恢复',
+
+  // Original text: "Add your vGate hosts or pools"
+  homeWelcomeText: '添加您的vGate主机或资源池',
 
   // Original text: "Want some help?"
   homeHelp: '需要帮助？',
@@ -509,8 +512,8 @@ export default {
   // Original text: "No schedules found"
   noSchedules: '未找到计划',
 
-  // Original text: "Select a xo-server API command"
-  jobActionPlaceHolder: '选择一个xo-server API 命令',
+  // Original text: "Select a vs-server API command"
+  jobActionPlaceHolder: '选择一个vs-server API 命令',
 
   // Original text: "Select your backup type:"
   newBackupSelection: '选择你的备份类型',
@@ -1760,8 +1763,8 @@ export default {
   // Original text: "No pending tasks"
   noTasks: '没有等待中的任务',
 
-  // Original text: "Currently, there are not any pending XenServer tasks"
-  xsTasks: '当前，没有任何等待中的XenServer任务',
+  // Original text: "Currently, there are not any pending vGate tasks"
+  xsTasks: '当前，没有任何等待中的vGate任务',
 
   // Original text: "List Remote"
   listRemote: '列出远程',
@@ -1964,14 +1967,14 @@ export default {
   // Original text: "Previous SR Usage"
   existingSrModalTitle: '之前存储库的使用情况',
 
-  // Original text: "This path has been previously used as a Storage by a XenServer host. All data will be lost if you choose to continue the SR creation."
-  existingSrModalText: '这条路径之前已经被一台XenServer主机用来连接存储。如果你选择继续创建存储库，所有的数据将丢失。',
+  // Original text: "This path has been previously used as a Storage by a vGate host. All data will be lost if you choose to continue the SR creation."
+  existingSrModalText: '这条路径之前已经被一台vGate主机用来连接存储。如果你选择继续创建存储库，所有的数据将丢失。',
 
   // Original text: "Previous LUN Usage"
   existingLunModalTitle: '之前LUN使用情况',
 
-  // Original text: "This LUN has been previously used as a Storage by a XenServer host. All data will be lost if you choose to continue the SR creation."
-  existingLunModalText: '这个LUN之前已经被一台XenServer主机使用。如果你选择继续创建存储库，所有的数据将丢失。',
+  // Original text: "This LUN has been previously used as a Storage by a vGate host. All data will be lost if you choose to continue the SR creation."
+  existingLunModalText: '这个LUN之前已经被一台vGate主机使用。如果你选择继续创建存储库，所有的数据将丢失。',
 
   // Original text: "Replace current registration?"
   alreadyRegisteredModal: '替换当前的注册？',
@@ -1982,8 +1985,8 @@ export default {
   // Original text: "Ready for trial?"
   trialReadyModal: '准备试用？',
 
-  // Original text: "During the trial period, XOA need to have a working internet connection. This limitation does not apply for our paid plans!"
-  trialReadyModalText: '在试用期内，XOA需要Internet连接才能正常使用，如果您正式付费将不受此限制',
+  // Original text: "During the trial period, VSA need to have a working internet connection. This limitation does not apply for our paid plans!"
+  trialReadyModalText: '在试用期内，VSA需要Internet连接才能正常使用，如果您正式付费将不受此限制',
 
   // Original text: "Host"
   serverHost: '主机',
@@ -2060,8 +2063,8 @@ export default {
   // Original text: "Are you sure you want to delete this network?"
   deleteNetworkConfirm: '你确定要删除此网络',
 
-  // Original text: "Xen Orchestra"
-  xenOrchestra: 'Xen Orchestra',
+  // Original text: "vStorage"
+  xenOrchestra: 'vStorage',
 
   // Original text: "server"
   xenOrchestraServer: '服务器',
@@ -2180,8 +2183,8 @@ export default {
   // Original text: "Your trial has been ended. Contact us or downgrade to Free version"
   trialConsumed: '你的使用已经结束，联系我们或下载免费版本',
 
-  // Original text: "Your xoa-updater service appears to be down. Your XOA cannot run fully without reaching this service."
-  trialLocked: '你的xoa-更新服务已停止。没有此服务你的XOA不能完全正常运行',
+  // Original text: "Your vsa-updater service appears to be down. Your VSA cannot run fully without reaching this service."
+  trialLocked: '你的vsa-更新服务已停止。没有此服务你的VSA不能完全正常运行',
 
   // Original text: "No update information available"
   noUpdateInfo: '没有更新信息可用',
@@ -2189,14 +2192,14 @@ export default {
   // Original text: "Update information may be available"
   waitingUpdateInfo: '更新信息可能可用',
 
-  // Original text: "Your XOA is up-to-date"
-  upToDate: '你的XOA是最新的',
+  // Original text: "Your VSA is up-to-date"
+  upToDate: '你的VSA是最新的',
 
-  // Original text: "You need to update your XOA (new version is available)"
-  mustUpgrade: '你需要更新你的XOA（有新版本可用）',
+  // Original text: "You need to update your VSA (new version is available)"
+  mustUpgrade: '你需要更新你的VSA（有新版本可用）',
 
-  // Original text: "Your XOA is not registered for updates"
-  registerNeeded: '你的XOA没有注册更新',
+  // Original text: "Your VSA is not registered for updates"
+  registerNeeded: '你的VSA没有注册更新',
 
   // Original text: "Can't fetch update information"
   updaterError: '不能获取更新信息',
@@ -2204,11 +2207,11 @@ export default {
   // Original text: "Upgrade successful"
   promptUpgradeReloadTitle: '更新成功',
 
-  // Original text: "Your XOA has successfully upgraded, and your browser must reload the application. Do you want to reload now ?"
-  promptUpgradeReloadMessage: '你的XOA已经成功更新，你的浏览器必须重新加载，你要现在重新加载吗？',
+  // Original text: "Your VSA has successfully upgraded, and your browser must reload the application. Do you want to reload now ?"
+  promptUpgradeReloadMessage: '你的VSA已经成功更新，你的浏览器必须重新加载，你要现在重新加载吗？',
 
-  // Original text: "Xen Orchestra from the sources"
-  disclaimerTitle: 'Xen Orchestra 源码版',
+  // Original text: "vStorage from the sources"
+  disclaimerTitle: 'vStorage 源码版',
 
   // Original text: "You are using XO from the sources! That's great for a personal/non-profit usage."
   disclaimerText1: '你在使用XO的源码版！这非常适合个人/非商业用途',

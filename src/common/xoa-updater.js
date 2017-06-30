@@ -225,7 +225,7 @@ class XoaUpdater extends EventEmitter {
     try {
       const token = await this._call('isRegistered')
       if (token.registrationToken === undefined) {
-        throw new NotRegistered('Your Xen Orchestra Appliance is not registered')
+        throw new NotRegistered('Your vStorage Appliance is not registered')
       } else {
         this.registerState = 'registered'
         this.token = token

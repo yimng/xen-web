@@ -622,21 +622,6 @@ export default class Home extends Component {
             </Link>
             <p className='text-muted'>{noRegisteredServers ? _('homeWelcomeText') : _('homeConnectServerText')}</p>
             <br /><br />
-            <h3>{_('homeHelp')}</h3>
-            <Row>
-              <Col mediumSize={6}>
-                <a href='https://xen-orchestra.com/docs/' target='_blank' className='btn btn-link'>
-                  <Icon icon='menu-about' size={4} />
-                  <h4>{_('homeOnlineDoc')}</h4>
-                </a>
-              </Col>
-              <Col mediumSize={6}>
-                <a href='https://xen-orchestra.com/#!/member/support' target='_blank' className='btn btn-link'>
-                  <Icon icon='menu-settings-users' size={4} />
-                  <h4>{_('homeProSupport')}</h4>
-                </a>
-              </Col>
-            </Row>
           </CardBlock>
         </Card>
       </CenterPanel>

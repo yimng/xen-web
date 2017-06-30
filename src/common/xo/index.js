@@ -60,7 +60,7 @@ export const signOut = () => {
 
 export const connect = () => {
   xo.open(createBackoff()).catch(error => {
-    logError(error, 'failed to connect to xo-server')
+    logError(error, 'failed to connect to vStorage-server')
   })
 }
 
@@ -93,7 +93,7 @@ const _call = (method, params) => {
 
   if (process.env.NODE_ENV !== 'production') {
     promise = promise::tap(null, error => {
-      console.error('XO error', {
+      console.error('VS error', {
         method,
         params,
         code: error.code,
@@ -316,7 +316,7 @@ export const serverVersion = _call('system.getServerVersion')
 
 export const getXoServerTimezone = _call('system.getServerTimezone')
 
-// XO --------------------------------------------------------------------------
+// VS --------------------------------------------------------------------------
 
 export const importConfig = config => (
   _call('xo.importConfig').then(({ $sendTo: url }) =>
@@ -1925,7 +1925,7 @@ export const setIpPool = (ipPool, { name, addresses, networks }) => (
   )
 )
 
-// XO SAN ----------------------------------------------------------------------
+// VS SAN ----------------------------------------------------------------------
 
 export const getVolumeInfo = (xosanSr) => _call('xosan.getVolumeInfo', { sr: xosanSr })
 

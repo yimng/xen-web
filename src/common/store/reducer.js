@@ -74,7 +74,7 @@ const combineActionHandlers = invoke(
 // ===================================================================
 
 export default {
-  lang: combineActionHandlers(cookies.get('lang') || 'en', {
+  lang: combineActionHandlers(cookies.get('lang') || 'zh', {
     [actions.selectLang]: (_, lang) => {
       cookies.set('lang', lang)
 

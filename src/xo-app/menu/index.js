@@ -145,7 +145,7 @@ export default class Menu extends Component {
         { to: '/backup/restore', icon: 'menu-backup-restore', label: 'backupRestorePage' },
         { to: '/backup/file-restore', icon: 'menu-backup-file-restore', label: 'backupFileRestorePage' }
       ]},
-      isAdmin && { to: '/xoa-update', icon: 'menu-update', label: 'updatePage', extra: <UpdateTag /> },
+      //isAdmin && { to: '/xoa-update', icon: 'menu-update', label: 'updatePage', extra: <UpdateTag /> },
       isAdmin && { to: '/settings/servers', icon: 'menu-settings', label: 'settingsPage', subMenu: [
         { to: '/settings/servers', icon: 'menu-settings-servers', label: 'settingsServersPage' },
         { to: '/settings/users', icon: 'menu-settings-users', label: 'settingsUsersPage' },
@@ -157,14 +157,16 @@ export default class Menu extends Component {
         { to: '/settings/ips', icon: 'ip', label: 'settingsIpsPage' },
         { to: '/settings/config', icon: 'menu-settings-config', label: 'settingsConfigPage' }
       ]},
+      /**
       isAdmin && { to: '/jobs/overview', icon: 'menu-jobs', label: 'jobsPage', subMenu: [
         { to: '/jobs/overview', icon: 'menu-jobs-overview', label: 'jobsOverviewPage' },
         { to: '/jobs/new', icon: 'menu-jobs-new', label: 'jobsNewPage' },
         { to: '/jobs/schedules', icon: 'menu-jobs-schedule', label: 'jobsSchedulingPage' }
       ]},
-      isAdmin && { to: '/about', icon: 'menu-about', label: 'aboutPage' },
+      **/
+      //isAdmin && { to: '/about', icon: 'menu-about', label: 'aboutPage' },
       { to: '/tasks', icon: 'task', label: 'taskMenu', pill: nTasks },
-      isAdmin && { to: '/xosan', icon: 'menu-xosan', label: 'xosan' },
+      //isAdmin && { to: '/xosan', icon: 'menu-xosan', label: 'xosan' },
       !(noOperatablePools && noResourceSets) && { to: '/vms/new', icon: 'menu-new', label: 'newMenu', subMenu: [
         { to: '/vms/new', icon: 'menu-new-vm', label: 'newVmPage' },
         isAdmin && { to: '/new/sr', icon: 'menu-new-sr', label: 'newSrPage' },
@@ -182,8 +184,8 @@ export default class Menu extends Component {
         <li>
           <span>
             <a className={styles.brand} href='#'>
-              <span className={styles.hiddenUncollapsed}>XO</span>
-              <span className={styles.hiddenCollapsed}>Xen Orchestra</span>
+              <span className={styles.hiddenUncollapsed}>VS</span>
+              <span className={styles.hiddenCollapsed}>vStorage</span>
             </a>
           </span>
         </li>
@@ -197,37 +199,6 @@ export default class Menu extends Component {
         )}
         <li>&nbsp;</li>
         <li>&nbsp;</li>
-        { (isAdmin || +process.env.XOA_PLAN === 5) && <li className='nav-item xo-menu-item'>
-          <Link className='nav-link' style={{display: 'flex'}} to={'/about'}>
-            {+process.env.XOA_PLAN === 5
-              ? <span>
-                <span className={classNames(styles.hiddenCollapsed, 'text-warning')}>
-                  <Icon icon='alarm' size='lg' fixedWidth /> {_('noSupport')}
-                </span>
-                <span className={classNames(styles.hiddenUncollapsed, 'text-warning')}>
-                  <Icon icon='alarm' size='lg' fixedWidth />
-                </span>
-              </span>
-              : +process.env.XOA_PLAN === 1
-                ? <span>
-                  <span className={classNames(styles.hiddenCollapsed, 'text-warning')}>
-                    <Icon icon='info' size='lg' fixedWidth /> {_('freeUpgrade')}
-                  </span>
-                  <span className={classNames(styles.hiddenUncollapsed, 'text-warning')}>
-                    <Icon icon='info' size='lg' fixedWidth />
-                  </span>
-                </span>
-                : <span>
-                  <span className={classNames(styles.hiddenCollapsed, 'text-success')}>
-                    <Icon icon='info' size='lg' fixedWidth /> {getXoaPlan()}
-                  </span>
-                  <span className={classNames(styles.hiddenUncollapsed, 'text-success')}>
-                    <Icon icon='info' size='lg' fixedWidth />
-                  </span>
-                </span>
-            }
-          </Link>
-        </li>}
         <li>&nbsp;</li>
         <li>&nbsp;</li>
         <li className='nav-item xo-menu-item'>

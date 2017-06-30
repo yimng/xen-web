@@ -265,6 +265,7 @@ const BACKUP_METHOD_TO_INFO = {
     jobKey: 'disasterRecovery',
     method: 'vm.rollingDrCopy'
   },
+  /*****
   'vm.deltaCopy': {
     schema: CONTINUOUS_REPLICATION_SCHEMA,
     uiSchema: generateUiSchema(CONTINUOUS_REPLICATION_SCHEMA),
@@ -273,6 +274,7 @@ const BACKUP_METHOD_TO_INFO = {
     jobKey: 'continuousReplication',
     method: 'vm.deltaCopy'
   }
+  ****/
 }
 
 // ===================================================================

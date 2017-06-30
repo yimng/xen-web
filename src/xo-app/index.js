@@ -121,7 +121,7 @@ export default class XoApp extends Component {
   componentDidMount () {
     this.refs.bodyWrapper.style.minHeight = this.refs.menu.getWrappedInstance().height + 'px'
     if (+process.env.XOA_PLAN === 5) {
-      this.displayOpenSourceDisclaimer()
+      //this.displayOpenSourceDisclaimer()
     }
   }
 
@@ -181,7 +181,7 @@ export default class XoApp extends Component {
 
     return <IntlProvider>
       <ThemeProvider theme={themes.base}>
-        <DocumentTitle title='Xen Orchestra'>
+        <DocumentTitle title='vStorage'>
           <div style={CONTAINER_STYLE}>
             <Shortcuts name='XoApp' handler={this._shortcutsHandler} targetNodeSelector='body' stopPropagation={false} />
             <Menu ref='menu' />

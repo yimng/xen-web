@@ -39,14 +39,14 @@ export default class About extends Component {
           <Col mediumSize={6}>
             <Icon icon='host' size={4} />
             <Copiable tagName='h4' data={`xo-server ${this.state.serverVersion}`}>
-              xo-server {this.state.serverVersion || 'unknown'}
+              vStorage-server {this.state.serverVersion || 'unknown'}
             </Copiable>
             <p className='text-muted'>{_('xenOrchestraServer')}</p>
           </Col>
           <Col mediumSize={6}>
             <Icon icon='vm' size={4} />
             <Copiable tagName='h4' data={`xo-web ${pkg.version}`}>
-              xo-web {pkg.version}</Copiable>
+              vStorage-web {pkg.version}</Copiable>
             <p className='text-muted'>{_('xenOrchestraWeb')}</p>
           </Col>
         </Row>

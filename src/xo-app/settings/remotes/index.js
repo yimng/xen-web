@@ -385,7 +385,7 @@ export default class Remotes extends Component {
                 <input type='text' ref='password' className='form-control' placeholder={this.props.intl.formatMessage(messages.remoteSmbPlaceHolderPassword)} />
               </div>
               <div className='form-group'>
-                <input type='text' ref='domain' className='form-control' placeholder={this.props.intl.formatMessage(messages.remoteSmbPlaceHolderDomain)} required />
+                <input type='text' ref='domain' className='form-control' placeholder={this.props.intl.formatMessage(messages.remoteSmbPlaceHolderDomain)} />
               </div>
             </fieldset>
           }
