@@ -1,8 +1,7 @@
 import React, { Component } from 'react'
+import RFB from '@nraynaud/novnc/lib/rfb'
 import { createBackoff } from 'jsonrpc-websocket-client'
-import { RFB } from 'novnc-node'
 import {
-  format as formatUrl,
   parse as parseUrl,
   resolve as resolveUrl
 } from 'url'
@@ -91,14 +90,23 @@ export default class NoVnc extends Component {
     const rfb = this._rfb = new RFB({
       encrypt: isSecure,
       target: this.refs.canvas,
-      wsProtocols: [ 'chat' ],
       onClipboard: onClipboardChange && ((_, text) => {
         onClipboardChange(text)
       }),
       onUpdateState: this._onUpdateState
     })
 
-    rfb.connect(formatUrl(url))
+    // remove leading slashes from the path
+    //
+    // a leading slassh will be added by noVNC
+    const clippedPath = url.path.replace(/^\/+/, '')
+
+    // a port is required
+    //
+    // if not available from the URL, use the default ones
+    let port = url.port || isSecure ? 443 : 80
+
+    rfb.connect(url.hostname, port, null, clippedPath)
     disableShortcuts()
   }
 

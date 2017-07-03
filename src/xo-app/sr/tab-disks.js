@@ -43,14 +43,22 @@ const COLUMNS = [
       const getObject = createGetObject((_, id) => id)
 
       return {
-        vm: (state, { item: vdi }) => {
-          const vbd = getObject(state, vdi.$VBDs[0])
+        vm: (state, { item: { $VBDs: [ vbdId ] } }) => {
+          if (vbdId === undefined) {
+            return null
+          }
+
+          const vbd = getObject(state, vbdId)
           if (vbd != null) {
             return getObject(state, vbd.VM)
           }
         }
       }
     })(({ vm }) => {
+      if (vm === null) {
+        return null // no attached VM
+      }
+
       if (vm === undefined) {
         return renderXoUnknownItem()
       }
@@ -87,10 +95,11 @@ const COLUMNS = [
 ]
 
 const FILTERS = {
-  filterNoSnapshots: 'type:!VDI-snapshot',
-  filterOnlyBaseCopy: 'type:VDI-unmanaged',
-  filterOnlyRegularDisks: '!type:|(VDI-snapshot VDI-unmanaged)',
-  filterOnlySnapshots: 'type:VDI-snapshot'
+  filterOnlyManaged: 'type:!VDI-unmanaged',
+  filterOnlyRegular: '!type:|(VDI-snapshot VDI-unmanaged)',
+  filterOnlySnapshots: 'type:VDI-snapshot',
+  filterOnlyOrphaned: 'type:!VDI-unmanaged $VBDs:!""',
+  filterOnlyUnmanaged: 'type:VDI-unmanaged'
 }
 
 // ===================================================================
@@ -112,6 +121,7 @@ export default class SrDisks extends Component {
             ? <SortedTable
               collection={vdis}
               columns={COLUMNS}
+              defaultFilter='filterOnlyManaged'
               filters={FILTERS}
             />
             : <h4 className='text-xs-center'>{_('srNoVdis')}</h4>
