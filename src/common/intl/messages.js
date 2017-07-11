@@ -271,7 +271,7 @@ var messages = {
   smartBackup: 'Smart backup',
   localRemoteWarningTitle: 'Local remote selected',
   localRemoteWarningMessage: 'Warning: local remotes will use limited VSA disk space. Only for advanced users.',
-  backupVersionWarning: 'Warning: this feature works only with vGate 6.5 or newer.',
+  backupVersionWarning: 'Warning: this feature works only with vGate 5.2.1 or newer.',
   editBackupVmsTitle: 'VMs',
   editBackupSmartStatusTitle: 'VMs statuses',
   editBackupSmartResidentOn: 'Resident on',
