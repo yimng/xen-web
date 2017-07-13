@@ -52,7 +52,7 @@ const COLUMNS = [
     default: true,
     name: _('logTime'),
     itemRenderer: log => <span>
-      {log.time && <FormattedDate value={new Date(log.time)} month='long' day='numeric' year='numeric' hour='2-digit' minute='2-digit' second='2-digit' />}
+      {log.time && <FormattedDate value={new Date(log.time)} month='long' day='numeric' year='numeric' hour='2-digit' minute='2-digit' second='2-digit' hour12={false} />}
     </span>,
     sortCriteria: log => log.time,
     sortOrder: 'desc'
