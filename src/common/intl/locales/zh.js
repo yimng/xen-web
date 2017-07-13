@@ -471,7 +471,7 @@ export default {
   jobScheduling: '计划',
 
   // Original text: "State"
-  jobState: '状态',
+  jobState: '按计划自动运行',
 
   // Original text: "Run job"
   runJob: '运行任务',
