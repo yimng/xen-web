@@ -32,6 +32,21 @@ export default {
   // Original text: "Home"
   homePage: '主页',
 
+  // Original text: "VMs"
+  homeVmPage: '虚拟机',
+
+  // Original text: "Hosts"
+  homeHostPage: '主机',
+
+  // Original text: "Pools"
+  homePoolPage: '资源池',
+
+  // Original text: "Templates"
+  homeTemplatePage: '模板',
+
+  // Original text: "Storages"
+  homeSrPage: '存储库',
+
   // Original text: "Dashboard"
   dashboardPage: '仪表盘',
 
