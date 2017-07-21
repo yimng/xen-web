@@ -58,7 +58,7 @@ export default class Config extends Component {
     const { configFile } = this.state
 
     return <div>
-      {process.env.XOA_PLAN < 5
+      {true || process.env.XOA_PLAN < 5
         ? <div className='mb-1'>
           <h2><Icon icon='import' /> {_('importConfig')}</h2>
           <form id='import-form'>
