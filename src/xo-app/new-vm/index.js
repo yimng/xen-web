@@ -458,7 +458,7 @@ export default class NewVm extends BaseComponent {
         return {
           ...disk,
           device,
-          name_description: disk.name_description || 'Created by XO',
+          name_description: disk.name_description || _('CreatedbyVS'),
           name_label: (name_label || 'disk') + '_' + device,
           SR: pool
             ? pool.default_SR
@@ -659,7 +659,7 @@ export default class NewVm extends BaseComponent {
 
     this._setState({ VDIs: [ ...state.VDIs, {
       device,
-      name_description: 'Created by XO',
+      name_description: _('CreatedbyVS'),
       name_label: (state.name_label || 'disk') + '_' + device,
       SR: pool && pool.default_SR,
       type: 'system'

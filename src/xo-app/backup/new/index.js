@@ -159,7 +159,7 @@ const BACKUP_SCHEMA = {
     remoteId: REMOTE_PROPERTY,
     compress: {
       type: 'boolean',
-      title: 'Enable compression',
+      title: _('copyVmCompress'),
       default: true
     }
   },

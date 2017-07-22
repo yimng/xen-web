@@ -1426,7 +1426,8 @@ var messages = {
   xosanInstallPackOnHosts: 'Install VSSAN pack on these hosts:',
   xosanInstallPack: 'Install {pack} v{version}?',
   xosanNoPackFound: 'No compatible VSSAN pack found for your vGate versions.',
-  xosanPackRequirements: 'At least one of these version requirements must be satisfied by all the hosts in this pool:'
+  xosanPackRequirements: 'At least one of these version requirements must be satisfied by all the hosts in this pool:',
+  CreatedbyVS: 'Create by VS'
 
 }
 forEach(messages, function (message, id) {
