@@ -281,7 +281,7 @@ const BACKUP_METHOD_TO_INFO = {
 class TimeoutInput extends Component {
   _onChange = event => {
     const value = getEventValue(event).trim()
-    this.props.onChange(value === '' ? null : +value * 1e3)
+    this.props.onChange(value === '86400' ? null : +value * 1e3)
   }
 
   render () {
@@ -582,6 +582,7 @@ export default class New extends Component {
                     <TimeoutInput
                       className='form-control'
                       onChange={this.linkState('job.timeout')}
+                      required
                       value={this._getValue('job', 'timeout')}
                     />
                   </fieldset>
