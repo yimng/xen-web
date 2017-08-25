@@ -281,7 +281,7 @@ const BACKUP_METHOD_TO_INFO = {
 class TimeoutInput extends Component {
   _onChange = event => {
     const value = getEventValue(event).trim()
-    this.props.onChange(value === '86400' ? null : +value * 1e3)
+    this.props.onChange(value === '' ? null : +value * 1e3)
   }
 
   render () {
@@ -293,7 +293,7 @@ class TimeoutInput extends Component {
       onChange={this._onChange}
       min='1'
       type='number'
-      value={value == null ? '' : String(value / 1e3)}
+      value={value == null ? '86400' : String(value / 1e3)}
     />
   }
 }
