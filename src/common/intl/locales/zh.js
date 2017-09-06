@@ -187,6 +187,8 @@ export default {
 
   // Original text: "Add your vGate hosts or pools"
   homeWelcomeText: '添加您的vGate主机或资源池',
+  
+  homeConnectServerText: '有些vGate已经注册但是没有连接',
 
   // Original text: "Want some help?"
   homeHelp: '需要帮助？',
@@ -194,6 +196,8 @@ export default {
   // Original text: "Add server"
   homeAddServer: '添加服务器',
 
+  homeConnectServer: '连接服务器',
+  
   // Original text: "Online Doc"
   homeOnlineDoc: '在线文档',
 
@@ -446,6 +450,12 @@ export default {
   // Original text: "Reset"
   schedulingReset: '重置',
 
+  // Original text "Web brower timezone"
+  timezonePickerUseLocalTime: '游览器时区',
+
+  // Original text "Server timezone ({value})"
+  serverTimezoneOption: '服务器时区 ({value})',
+  
   // Original text: "Unknown"
   unknownSchedule: '未知',
 
@@ -1317,7 +1327,7 @@ export default {
   guestOsLabel: '客户操作系统',
 
   // Original text: "Misc"
-  miscLabel: 'Misc',
+  miscLabel: '杂项',
 
   // Original text: "UUID"
   uuid: 'UUID',
@@ -2390,4 +2400,106 @@ export default {
   supplementalPackInstallSuccessTitle: '安装成功',
   supplementalPackInstallSuccessMessage: '补充包成功安装',
   CreatedbyVS: '由VS创建',
+  // ----- User preferences -----
+  saveNewUserFilterErrorTitle: 'Save filter error',
+  saveNewUserFilterErrorBody: 'Bad parameter: name must be given.',
+  filterName: '名字:',
+  filterValue: '值:',
+  saveNewFilterTitle: '保存新的过滤器',
+  setUserFiltersTitle: '设置自定义的过滤器',
+  setUserFiltersBody: '你确定要设置自定义的过滤器吗?',
+  removeUserFilterTitle: '移除自定义的过滤器',
+  removeUserFilterBody: '你确定要移除自定义的过滤器吗?',
+  defaultFilter: '默认过滤器',
+  defaultFilters: '默认过滤器',
+  customFilters: '自定义过滤器',
+  customizeFilters: '自定义过滤器',
+  saveCustomFilters: '保存自定义过滤器',
+  // ----- Restore files view -----
+  listRemoteBackups: '列出远程文件系统上的备份',
+  restoreFiles: '恢复备份文件',
+  restoreFilesError: '无效的选项',
+  restoreFilesFromBackup: '从 {name} 恢复备份文件',
+  restoreFilesSelectBackup: '选择一个备份…',
+  restoreFilesSelectDisk: '选择一个磁盘…',
+  restoreFilesSelectPartition: '选择一个分区…',
+  restoreFilesSelectFolderPath: '文件路径',
+  restoreFilesSelectFiles: '选择一个文件…',
+  restoreFileContentNotFound: '找不到内容',
+  restoreFilesNoFilesSelected: '没有选中文件',
+  restoreFilesSelectedFiles: '选择一些文件({files}):',
+  restoreFilesDiskError: '在扫描磁盘的时候发生错误',
+  restoreFilesSelectAllFiles: '选择这个文件夹下的所有文件',
+  restoreFilesUnselectAll: '取消选择所有文件',
+  // ---- Backup views ---
+  backupSchedules: '备份日程',
+  getRemote: '取得远程',
+  delta: '增量',
+  restoreBackupsInfo: '点击虚拟机显示恢复选项',
+  restoreDeltaBackupsInfo: '只有不在远程SMB上的增量备份的文件可以恢复',
+  backupTags: '标签',
+  backupRestoreErrorTitle: '缺少参数',
+  backupRestoreErrorMessage: '选择存储库和备份',
+  backupRestoreSelectDefaultSr: '选择默认的存储库…',
+  backupRestoreChooseSrForEachVdis: '为每个VDI选择一个SR',
+  backupRestoreVdiLabel: 'VDI',
+  backupRestoreSrLabel: 'SR',
+  displayBackup: '显示备份',
+  // ----- User Profile -----
+  editUserProfile: '编辑我的设置 {username}',
+  // ----- Self -----
+  loadingResourceSets: '加载资源集',
+  ipPool: 'IP 池',
+  quantity: '数量',
+  resourceSetNew: '新建',
+  // ----- Modals -----
+  addHostModalTitle: '添加主机',
+  addHostModalMessage: '你确实要把主机{host}添加到资源池{pool}?',
+  cloneAndStartVM: '开始拷贝',
+  forceStartVm: '强制开始',
+  forceStartVmModalTitle: '禁止的操作',
+  blockedStartVmModalMessage: '虚拟机的启动操作被阻止',
+  blockedStartVmsModalMessage: 'Forbidden operation start for {nVms, number} vm{nVms, plural, one {} other {s}}.',
+  failedVmsErrorMessage: '{nVms, number} vm{nVms, plural, one {} other {s}} are failed. Please see your logs to get more information',
+  failedVmsErrorTitle: '启动失败',
+  migrateVmNoDefaultSrError: '没有默认的SR',
+  migrateVmNotConnectedDefaultSrError: '默认的SR没有连接主机',
+  chooseSrForEachVdisModalSelectSr: '为每个VDI选择一个SR:',
+  chooseSrForEachVdisModalMainSr: '选择主要的SR…',
+  chooseSrForEachVdisModalVdiLabel: 'VDI',
+  chooseSrForEachVdisModalSrLabel: 'SR*',
+  chooseSrForEachVdisModalOptionalEntry: '* optional',
+  deleteVdiModalTitle: '删除VDI',
+  deleteVdiModalMessage: '你确定要删除这块磁盘吗? ALL DATA ON THIS DISK WILL BE LOST',
+  revertVmModalTitle: '还原虚拟机',
+  deleteSnapshotModalTitle: '删除快照',
+  deleteSnapshotModalMessage: '你确定要删除快照吗?',
+  revertVmModalMessage: '你确定要还原虚拟机到快照状态吗? 这个操作不可逆转.',
+  revertVmModalSnapshotBefore: '快照前',
+  // ------ Remote -----
+  remoteName: '名字',
+  remotePath: '路径',
+  remoteState: '状态',
+  remoteDevice: '设备',
+  remoteShare: '共享',
+  remoteAction: '动作',
+  remoteAuth: 'Auth',
+  remoteMounted: '已挂载',
+  remoteUnmounted: '未挂载',
+  remoteConnectTip: '连接',
+  remoteDisconnectTip: '断开连接',
+  remoteConnected: '已连接',
+  remoteDisconnected: '已断开连接',
+  remoteDeleteTip: '删除',
+  remoteNamePlaceHolder: 'remote name *',
+  remoteMyNamePlaceHolder: 'Name *',
+  remoteLocalPlaceHolderPath: '/path/to/backup',
+  remoteNfsPlaceHolderHost: 'host *',
+  remoteNfsPlaceHolderPath: 'path/to/backup',
+  remoteSmbPlaceHolderRemotePath: 'subfolder [path\\to\\backup]',
+  remoteSmbPlaceHolderUsername: '用户名',
+  remoteSmbPlaceHolderPassword: '密码',
+  remoteSmbPlaceHolderDomain: '域',
+  remoteSmbPlaceHolderAddressShare: '<address>\\<share> *',
+  remotePlaceHolderPassword: 'password(fill to edit)',
 }
