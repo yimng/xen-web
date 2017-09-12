@@ -293,7 +293,7 @@ class TimeoutInput extends Component {
       onChange={this._onChange}
       min='1'
       type='number'
-      value={value == null ? '86400' : String(value / 1e3)}
+      value={value == null ? '82800' : String(value / 1e3)}
     />
   }
 }
