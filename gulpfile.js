@@ -15,7 +15,8 @@ var PRODUCTION = process.env.NODE_ENV === 'production'
 var DEVELOPMENT = !PRODUCTION
 
 if (!process.env.XOA_PLAN) {
-  process.env.XOA_PLAN = '5' // Open Source
+  //process.env.XOA_PLAN = '5' // Open Source
+ process.env.XOA_PLAN = '1' // Free
 }
 
 // ===================================================================

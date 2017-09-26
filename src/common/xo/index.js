@@ -332,6 +332,24 @@ export const exportConfig = () => (
   _call('xo.exportConfig').then(({ $getFrom: url }) => { window.location = `.${url}` })
 )
 
+// License --------------------------------------------------------------------------
+
+export const importLicense = license => (
+  _call('license.importLicense').then(({ $sendTo: url }) =>
+    request.post(url).send(license).then(response => {
+      if (response.status !== 200) {
+        throw new Error('license import failed')
+      }
+    })
+  )
+)
+export const getLicense = () => (
+  _call('license.get')::tap(
+    null,
+    err => error(_('getLicense'), err.message || String(err))
+  )
+)
+
 // Server ------------------------------------------------------------
 
 export const addServer = (host, username, password, label) => (

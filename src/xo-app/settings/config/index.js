@@ -10,6 +10,7 @@ import {
 } from 'utils'
 import {
   importConfig,
+  importLicense,
   exportConfig
 } from 'xo'
 
@@ -22,7 +23,7 @@ export default class Config extends Component {
 
   _importConfig = () => {
     this.setState({ importStatus: 'start' }, () =>
-      importConfig(this.state.configFile).then(
+      importLicense(this.state.configFile).then(
         () => this.setState({ configFile: undefined, importStatus: 'end' }),
         () => this.setState({ configFile: undefined, importStatus: 'importError' })
       )
