@@ -344,10 +344,7 @@ export const importLicense = license => (
   )
 )
 export const getLicense = () => (
-  _call('license.get')::tap(
-    null,
-    err => error(_('getLicense'), err.message || String(err))
-  )
+  _call('license.getLicense')
 )
 
 // Server ------------------------------------------------------------

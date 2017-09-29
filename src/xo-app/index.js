@@ -120,7 +120,7 @@ export default class XoApp extends Component {
 
   componentDidMount () {
     this.refs.bodyWrapper.style.minHeight = this.refs.menu.getWrappedInstance().height + 'px'
-    if (+process.env.XOA_PLAN === 5) {
+    if (+global.XOA_PLAN === 5) {
       //this.displayOpenSourceDisclaimer()
     }
   }

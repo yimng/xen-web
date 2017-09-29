@@ -221,14 +221,14 @@ const CONTINUOUS_REPLICATION_SCHEMA = {
   required: COMMON_SCHEMA.required.concat('sr')
 }
 
-let REQUIRED_XOA_PLAN
-if (process.env.XOA_PLAN < 4) {
-  REQUIRED_XOA_PLAN = {
+//let REQUIRED_XOA_PLAN
+//if (global.XOA_PLAN < 4) {
+ let  REQUIRED_XOA_PLAN = {
     deltaBackup: 3,
     disasterRecovery: 3,
     continuousReplication: 4
   }
-}
+//}
 
 // ===================================================================
 
@@ -662,9 +662,9 @@ export default class New extends Component {
               <Row>
                 <Col>
                   <SchedulePreview cronPattern={scheduling.cronPattern} />
-                  {process.env.XOA_PLAN < 4 && backupInfo && process.env.XOA_PLAN < REQUIRED_XOA_PLAN[backupInfo.jobKey]
+                  {global.XOA_PLAN < 4 && backupInfo && global.XOA_PLAN < REQUIRED_XOA_PLAN[backupInfo.jobKey]
                     ? <Upgrade place='newBackup' available={REQUIRED_XOA_PLAN[backupInfo.jobKey]} />
-                    : (smartBackupMode && process.env.XOA_PLAN < 3
+                    : (smartBackupMode && global.XOA_PLAN < 3
                       ? <Upgrade place='newBackup' available={3} />
                       : <fieldset className='pull-right pt-1'>
                         <ActionButton

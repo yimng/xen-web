@@ -93,7 +93,7 @@ export default class PoolStats extends Component {
       useCombinedValues
     } = this.state
 
-    return process.env.XOA_PLAN > 2
+    return global.XOA_PLAN > 2
       ? stats
         ? <Container>
           <Row>

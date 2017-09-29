@@ -51,7 +51,7 @@ export default class About extends Component {
           </Col>
         </Row>
       }
-        {process.env.XOA_PLAN > 4
+        {global.XOA_PLAN > 4
           ? <div>
             <Row>
               <Col>
@@ -77,7 +77,7 @@ export default class About extends Component {
               </Col>
             </Row>
           </div>
-          : +process.env.XOA_PLAN === 1
+          : +global.XOA_PLAN === 1
             ? <div>
               <Row>
                 <Col>

@@ -42,7 +42,7 @@ export function exposeTrial (trial) {
 
 export function blockXoaAccess (xoaState) {
   let block = xoaState.state === 'untrustedTrial'
-  if (process.env.XOA_PLAN > 1 && process.env.XOA_PLAN < 5) {
+  if (global.XOA_PLAN > 1 && global.XOA_PLAN < 5) {
     block = block || xoaState.state === 'ERROR'
   }
   return block
@@ -265,10 +265,6 @@ class XoaUpdater extends EventEmitter {
       this.registerState = 'registered'
       this.registerError = ''
       this.token = token
-      process.env.XOA_PLAN = 4
-      console.log('info', '>>>>>>>>>>>>>>>>>>>>>>>>>>>')
-      console.log('info', process.env.XOA_PLAN)
-      console.log('info', '<<<<<<<<<<<<<<<<<<<<<<<<<<<')
       return token
     } catch (error) {
       if (!renew) {
@@ -301,10 +297,6 @@ class XoaUpdater extends EventEmitter {
       let now = new Date();
       let expire = now.setDate(now.getDate() + 30);
       let trial = {plan: 'premium', end: expire}
-      //fse.outputJson('/etc/license/trial.json', trial)
-      console.log('warning', '>>>>>>>>>>>>>>>>>>>>>>>>>>>')
-      console.log('warning', process.env.XOA_PLAN)
-      console.log('warning', '<<<<<<<<<<<<<<<<<<<<<<<<<<<')
       return trial 
     } finally {
       this.xoaState()
@@ -314,13 +306,13 @@ class XoaUpdater extends EventEmitter {
   async xoaState () {
     try {
       //const state = await this._call('xoaState')
-      
-      //const license = await getLicense()
+      const license = await getLicense()
+      console.log(">>>>>>>>>>>>>>>>>>>>>>>>License")
+      console.log(license)
+      console.log(">>>>>>>>>>>>>>>>>>>>>>>>License")
       let now = new Date()
       let expire = now.setDate(now.getDate() + 30)
       let trial = {plan: 'premium', end: expire}
-      process.env.XOA_PLAN = 4
-      console.log('***********************************')
       const state = {
         state: 'trustedTrial',
         message: 'You have a vStorage Appliance granted under trial. Your trial lasts until ' + new Date(trial.end).toLocaleString(),
@@ -349,20 +341,15 @@ class XoaUpdater extends EventEmitter {
       //const c = await this._open()
       //this.log('info', 'Start ' + (upgrade ? 'upgrading' : 'updating' + '...'))
       //c.notify('update', {upgrade})
-      //const trial = fse.readJson('/etc/license/trial.json')
+
       const license = await getLicense()
+      global.XOA_PLAN = 2
       let expire = now.setDate(now.getDate() + 30);
       let trial = {plan: 'premium', end: expire}
       const state = {
         state: 'trustedTrial',
         message: 'You have a vStorage Appliance granted under trial. Your trial lasts until ' + new Date(trial.end).toLocaleString(),
         trial
-      }
-      if (!isTrialRunning(trial)) {
-        process.env.XOA_PLAN = 1
-        console.log("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$")
-      } else {
-        process.env.XOA_PLAN = 4
       }
     } catch (error) {
       this._waiting = false
@@ -420,7 +407,8 @@ class XoaUpdater extends EventEmitter {
 
   async getConfiguration () {
     try {
-      this._configuration = await this._call('getConfiguration')
+      //this._configuration = await this._call('getConfiguration')
+      this._configuration = {}
       return this._configuration
     } catch (error) {
       this._configuration = {}

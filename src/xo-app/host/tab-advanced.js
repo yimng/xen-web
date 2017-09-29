@@ -12,7 +12,7 @@ import {
   map
 } from 'lodash'
 
-const ALLOW_INSTALL_SUPP_PACK = process.env.XOA_PLAN > 1
+const ALLOW_INSTALL_SUPP_PACK = global.XOA_PLAN > 1
 
 const forceReboot = host => restartHost(host, true)
 

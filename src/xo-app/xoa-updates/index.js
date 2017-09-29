@@ -33,7 +33,7 @@ const promptForReload = (source, force) => {
   updateSource = source
 }
 
-if (+process.env.XOA_PLAN < 5) {
+if (+global.XOA_PLAN < 5) {
   xoaUpdater.start()
   xoaUpdater.on('upgradeSuccessful', source => promptForReload(source, !source))
   xoaUpdater.on('upToDate', promptForReload)
@@ -184,7 +184,7 @@ export default class XoaUpdates extends Component {
 
     const { formatMessage } = this.props.intl
     return <Page header={HEADER} title='updateTitle' formatTitle>
-      <Container>{+process.env.XOA_PLAN === 5
+      <Container>{+global.XOA_PLAN === 5
         ? <div>
           <h2 className='text-danger'>{_('noUpdaterCommunity')}</h2>
           <p>{_('considerSubscribe', { link: <a href='https://xen-orchestra.com'>https://xen-orchestra.com</a> })}</p>
@@ -314,7 +314,7 @@ export default class XoaUpdates extends Component {
                     </form>
                     : <ActionButton icon='edit' btnStyle='primary' handler={this._toggleAskRegisterAgain}>{_('editRegistration')}</ActionButton>
                   }
-                  {+process.env.XOA_PLAN === 1 &&
+                  {+global.XOA_PLAN === 1 &&
                     <div>
                       <h2>{_('trial')}</h2>
                       {this._trialAllowed(trial) &&
@@ -333,7 +333,7 @@ export default class XoaUpdates extends Component {
                       }
                     </div>
                   }
-                  {(process.env.XOA_PLAN > 1 && process.env.XOA_PLAN < 5) &&
+                  {(global.XOA_PLAN > 1 && global.XOA_PLAN < 5) &&
                     <div>
                       {trial.state === 'trustedTrial' &&
                         <p>{trial.message}</p>
@@ -343,7 +343,7 @@ export default class XoaUpdates extends Component {
                       }
                     </div>
                   }
-                  {process.env.XOA_PLAN < 5 &&
+                  {global.XOA_PLAN < 5 &&
                     <div>
                       {this._updaterDown(trial) &&
                         <p className='text-danger'>{_('trialLocked')}</p>

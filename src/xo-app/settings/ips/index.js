@@ -291,7 +291,7 @@ export default class Ips extends BaseComponent {
   ]
 
   render () {
-    if (process.env.XOA_PLAN < 4) {
+    if (global.XOA_PLAN < 4) {
       return <Container><Upgrade place='health' available={4} /></Container>
     }
 

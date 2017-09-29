@@ -114,7 +114,7 @@ export default class Visualizations extends Component {
   )
 
   render () {
-    return process.env.XOA_PLAN > 3
+    return global.XOA_PLAN > 3
       ? <Container>
         <Row>
           <Col>

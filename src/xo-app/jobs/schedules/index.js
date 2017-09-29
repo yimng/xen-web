@@ -169,7 +169,7 @@ export default class Schedules extends Component {
       <br />
       <div className='form-group'>
         {schedule && <p className='text-warning'>{_('scheduleEditMessage', {name: schedule.name, id: schedule.id})}</p>}
-        {process.env.XOA_PLAN > 3
+        {global.XOA_PLAN > 3
           ? <span><ActionButton form='newScheduleForm' handler={this._handleSubmit} icon='save' btnStyle='primary'>{_('saveBackupJob')}</ActionButton>
             {' '}
             <Button onClick={this._reset}>{_('selectTableReset')}</Button></span>

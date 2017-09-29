@@ -25,7 +25,7 @@ const store = createStore(
 
 connectXo(store)
 
-if (process.env.XOA_PLAN < 5) {
+if (global.XOA_PLAN < 5) {
   require('xoa-updater').connectStore(store)
 }
 

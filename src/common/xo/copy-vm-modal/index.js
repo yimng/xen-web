@@ -29,7 +29,7 @@ class CopyVmModalBody extends Component {
 
   render () {
     const { formatMessage } = this.props.intl
-    return process.env.XOA_PLAN > 2
+    return global.XOA_PLAN > 2
       ? <div>
         <SingleLineRow>
           <Col size={6}>{_('copyVmSelectSr')}</Col>

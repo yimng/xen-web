@@ -139,7 +139,7 @@ export default class Overview extends Component {
 
     const isScheduleUserMissing = this._getIsScheduleUserMissing()
 
-    return (process.env.XOA_PLAN > 3
+    return (global.XOA_PLAN > 3
       ? <Container>
         <Card>
           <CardHeader>

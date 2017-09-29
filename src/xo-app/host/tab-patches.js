@@ -160,7 +160,7 @@ export default class HostPatches extends Component {
     const { host, missingPatches, installAllPatches, installPatch } = this.props
     const { patches, columns } = this._getPatches()
     const hasMissingPatches = !isEmpty(missingPatches)
-    return process.env.XOA_PLAN > 1
+    return global.XOA_PLAN > 1
       ? <Container>
         <Row>
           <Col className='text-xs-right'>

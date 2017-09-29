@@ -268,7 +268,7 @@ export default class Restore extends Component {
       return <h2>{_('statusLoading')}</h2>
     }
 
-    return process.env.XOA_PLAN > 1
+    return global.XOA_PLAN > 1
       ? <Container>
         <h2>{_('restoreBackups')}</h2>
         {isEmpty(backupInfoByVm)

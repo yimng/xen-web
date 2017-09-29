@@ -115,7 +115,7 @@ export default class FileRestore extends Component {
       return <h2>{_('statusLoading')}</h2>
     }
 
-    return process.env.XOA_PLAN > 3
+    return global.XOA_PLAN > 3
       ? <Container>
         <h2>{_('restoreFiles')}</h2>
         {isEmpty(backupInfoByVm)

@@ -290,7 +290,7 @@ export default class Import extends Component {
     } = this.state
 
     return <Page header={HEADER} title='newImport' formatTitle>
-      {process.env.XOA_PLAN > 1
+      {global.XOA_PLAN > 1
         ? (
           <Container>
             <form id='import-form'>

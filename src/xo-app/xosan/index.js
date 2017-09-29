@@ -549,7 +549,7 @@ export default class Xosan extends Component {
     const error = this._getError()
 
     return <Page header={HEADER} title='xosan' formatTitle>
-      {process.env.XOA_PLAN < 5
+      {global.XOA_PLAN < 5
         ? <Container>
           {error
             ? <em>{error}</em>

@@ -676,7 +676,7 @@ export default class Self extends Component {
       header={HEADER}
       title='selfServicePage'
     >
-      {process.env.XOA_PLAN > 3
+      {global.XOA_PLAN > 3
         ? <div>
           <div className='mb-1'>
             <ActionButton

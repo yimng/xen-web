@@ -421,7 +421,7 @@ const weekChartsRenderer = metric => (
   />
 )
 
-const Stats = () => process.env.XOA_PLAN > 2
+const Stats = () => global.XOA_PLAN > 2
   ? <div>
     <MetricViewer
       metricRenderer={weekHeatmapRenderer}

@@ -96,7 +96,7 @@ export default injectIntl(
 
       return !stats
         ? <p>No stats.</p>
-        : process.env.XOA_PLAN > 2
+        : global.XOA_PLAN > 2
           ? <Container>
             <Row>
               <Col mediumSize={6}>

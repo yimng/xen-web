@@ -159,7 +159,7 @@ export default class Overview extends Component {
     const users = state && state.users
     const nUsers = size(users)
 
-    return process.env.XOA_PLAN > 2
+    return global.XOA_PLAN > 2
         ? <Container>
           <Row>
             <Col mediumSize={4}>

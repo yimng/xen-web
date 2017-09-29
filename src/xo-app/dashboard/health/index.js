@@ -428,7 +428,7 @@ export default class Health extends Component {
   _getSrUrl = sr => `srs/${sr.id}`
 
   render () {
-    return process.env.XOA_PLAN > 3
+    return global.XOA_PLAN > 3
       ? <Container>
         <Row>
           <Col>

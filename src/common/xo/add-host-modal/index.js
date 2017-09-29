@@ -44,7 +44,7 @@ import {
 }), { withRef: true })
 export default class AddHostModal extends BaseComponent {
   get value () {
-    if (process.env.XOA_PLAN < 2 && this.state.nMissingPatches) {
+    if (global.XOA_PLAN < 2 && this.state.nMissingPatches) {
       return {}
     }
 
@@ -83,7 +83,7 @@ export default class AddHostModal extends BaseComponent {
       {nMissingPatches > 0 && <SingleLineRow>
         <Col>
           <span className='text-danger'>
-            <Icon icon='error' /> {process.env.XOA_PLAN > 1
+            <Icon icon='error' /> {global.XOA_PLAN > 1
               ? _('hostNeedsPatchUpdate', { patches: nMissingPatches })
               : _('hostNeedsPatchUpdateNoInstall')
             }
