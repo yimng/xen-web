@@ -25,6 +25,7 @@ import {
   fetchHostStats,
   fetchVmStats
 } from 'xo'
+import { XOA_PLAN } from 'xoa-updater'
 
 // ===================================================================
 
@@ -421,7 +422,7 @@ const weekChartsRenderer = metric => (
   />
 )
 
-const Stats = () => global.XOA_PLAN > 2
+const Stats = () => XOA_PLAN > 2
   ? <div>
     <MetricViewer
       metricRenderer={weekHeatmapRenderer}

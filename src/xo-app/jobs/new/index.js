@@ -34,6 +34,7 @@ import {
   subscribeJobs,
   subscribeUsers
 } from 'xo'
+import { XOA_PLAN } from 'xoa-updater'
 
 const JOB_KEY = 'genericTask'
 
@@ -385,7 +386,7 @@ export default class Jobs extends Component {
         {action && <fieldset>
           <GenericInput ref='params' schema={action.info} uiSchema={action.uiSchema} label={action.method} required />
           {job && <p className='text-warning'>{_('jobEditMessage', { name: job.name, id: job.id.slice(4, 8) })}</p>}
-          {global.XOA_PLAN > 3
+          {XOA_PLAN > 3
             ? <span><ActionButton form='newJobForm' handler={this._handleSubmit} icon='save' btnStyle='primary'>{_('saveResourceSet')}</ActionButton>
               {' '}
               <Button onClick={this._reset}>{_('resetResourceSet')}</Button></span>

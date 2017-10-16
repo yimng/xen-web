@@ -35,6 +35,7 @@ import {
   subscribeRemotes
 } from 'xo'
 
+import { XOA_PLAN } from 'xoa-updater'
 // Can 2 SRs on the same pool have 2 VDIs used by the same VM
 const areSrsCompatible = (sr1, sr2) =>
   sr1.shared || sr2.shared || sr1.$container === sr2.$container
@@ -268,7 +269,7 @@ export default class Restore extends Component {
       return <h2>{_('statusLoading')}</h2>
     }
 
-    return global.XOA_PLAN > 1
+    return XOA_PLAN > 1
       ? <Container>
         <h2>{_('restoreBackups')}</h2>
         {isEmpty(backupInfoByVm)

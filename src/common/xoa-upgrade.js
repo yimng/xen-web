@@ -7,6 +7,7 @@ import propTypes from './prop-types-decorator'
 import { Card, CardHeader, CardBlock } from './card'
 import { connectStore, getXoaPlan } from './utils'
 import { isAdmin } from 'selectors'
+import { XOA_PLAN } from 'xoa-updater'
 
 const Upgrade = propTypes({
   available: propTypes.number,
@@ -20,7 +21,7 @@ const Upgrade = propTypes({
   isAdmin,
   place,
   required = available
-}) => process.env.XOA_PLAN < required
+}) => XOA_PLAN < required
   ? <Card>
     <CardHeader>{_('upgradeNeeded')}</CardHeader>
     {isAdmin

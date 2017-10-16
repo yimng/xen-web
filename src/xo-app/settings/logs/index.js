@@ -15,14 +15,15 @@ import { alert, confirm } from 'modal'
 import { createSelector } from 'selectors'
 import { FormattedDate } from 'react-intl'
 import { subscribeApiLogs, subscribeUsers, deleteApiLog } from 'xo'
+import { XOA_PLAN } from 'xoa-updater'
 
-const CAN_REPORT_BUG = global.XOA_PLAN > 1
+const CAN_REPORT_BUG = XOA_PLAN > 1
 
 const reportBug = log => {
   const title = encodeURIComponent(`Error on ${log.data.method}`)
   const message = encodeURIComponent(`\`\`\`\n${log.data.method}\n${JSON.stringify(log.data.params, null, 2)}\n${JSON.stringify(log.data.error, null, 2).replace(/\\n/g, '\n')}\n\`\`\``)
 
-  window.open(global.XOA_PLAN < 5
+  window.open(XOA_PLAN < 5
     ? `https://xen-orchestra.com/#!/member/support?title=${title}&message=${message}`
     : `https://github.com/vatesfr/xo-web/issues/new?title=${title}&body=${message}`
   )

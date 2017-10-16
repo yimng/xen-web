@@ -14,6 +14,7 @@ import {
   VifLineChart,
   XvdLineChart
 } from 'xo-line-chart'
+import { XOA_PLAN } from 'xoa-updater'
 
 export default injectIntl(
   class VmStats extends Component {
@@ -96,7 +97,7 @@ export default injectIntl(
 
       return !stats
         ? <p>No stats.</p>
-        : global.XOA_PLAN > 2
+        : XOA_PLAN > 2
           ? <Container>
             <Row>
               <Col mediumSize={6}>

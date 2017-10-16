@@ -41,6 +41,7 @@ import XoaUpdates from './xoa-updates'
 import Xosan from './xosan'
 
 import keymap, { help } from '../keymap'
+import { XOA_PLAN } from 'xoa-updater'
 
 const shortcutManager = new ShortcutManager(keymap)
 
@@ -120,7 +121,7 @@ export default class XoApp extends Component {
 
   componentDidMount () {
     this.refs.bodyWrapper.style.minHeight = this.refs.menu.getWrappedInstance().height + 'px'
-    if (+global.XOA_PLAN === 5) {
+    if (+XOA_PLAN === 5) {
       //this.displayOpenSourceDisclaimer()
     }
   }

@@ -49,6 +49,7 @@ import {
 } from 'xo'
 
 import Graph from './graph'
+import { XOA_PLAN } from 'xoa-updater'
 
 // ==================================================================
 
@@ -549,7 +550,7 @@ export default class Xosan extends Component {
     const error = this._getError()
 
     return <Page header={HEADER} title='xosan' formatTitle>
-      {global.XOA_PLAN < 5
+      {XOA_PLAN < 5
         ? <Container>
           {error
             ? <em>{error}</em>

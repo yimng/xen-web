@@ -35,6 +35,7 @@ import {
   subscribeRoles,
   subscribeUsers
 } from 'xo'
+import { XOA_PLAN } from 'xoa-updater'
 
 const TYPES = [
   'VM',
@@ -233,7 +234,7 @@ export default class Acls extends Component {
       subjects
     } = this.state
 
-    return global.XOA_PLAN > 2
+    return XOA_PLAN > 2
       ? <Container>
         <form>
           <div className='form-group'>

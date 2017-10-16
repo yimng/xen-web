@@ -10,6 +10,7 @@ import { connectStore as connectXo } from '../xo'
 
 import DevTools from './dev-tools'
 import reducer from './reducer'
+import { XOA_PLAN } from 'xoa-updater'
 
 // ===================================================================
 
@@ -25,7 +26,7 @@ const store = createStore(
 
 connectXo(store)
 
-if (global.XOA_PLAN < 5) {
+if (XOA_PLAN < 5) {
   require('xoa-updater').connectStore(store)
 }
 

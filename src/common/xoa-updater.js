@@ -19,6 +19,7 @@ import {
 
 // ===================================================================
 
+var XOA_PLAN = 1
 const states = [
   'disconnected',
   'updating',
@@ -42,7 +43,7 @@ export function exposeTrial (trial) {
 
 export function blockXoaAccess (xoaState) {
   let block = xoaState.state === 'untrustedTrial'
-  if (global.XOA_PLAN > 1 && global.XOA_PLAN < 5) {
+  if (XOA_PLAN > 1 && XOA_PLAN < 5) {
     block = block || xoaState.state === 'ERROR'
   }
   return block
@@ -80,24 +81,27 @@ class XoaUpdater extends EventEmitter {
   }
 
   state (state) {
+    console.log('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>state')
     this._state = state
     this.emit(state, this._lowState && this._lowState.source)
   }
 
   async update () {
+    console.log('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>update')
     if (this._waiting) {
       return
     }
-    this._waiting = true
+    //this._waiting = true
     this.state('updating')
     this._update(false)
   }
 
   async upgrade () {
+    console.log('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>upgrade')
     if (this._waiting) {
       return
     }
-    this._waiting = true
+    //this._waiting = true
     this.state('upgrading')
     await this._update(true)
   }
@@ -225,29 +229,8 @@ class XoaUpdater extends EventEmitter {
     }
   }
 
-  async isRegistered_old () {
-    try {
-      const token = await this._call('isRegistered')
-      if (token.registrationToken === undefined) {
-        throw new NotRegistered('Your vStorage Appliance is not registered')
-      } else {
-        this.registerState = 'registered'
-        this.token = token
-        return token
-      }
-    } catch (error) {
-      delete this.token
-      if (error instanceof NotRegistered) {
-        this.registerState = 'unregistered'
-      } else {
-        this.registerError = error.message
-        this.registerState = 'error'
-      }
-    } finally {
-      this.emit('registerState', {state: this.registerState, email: (this.token && this.token.registrationEmail) || '', error: this.registerError})
-    }
-  }
   async isRegistered () {
+    console.log('>>>>>>>>>>>>>>>>>>>>>>>>>>>isRegistered')
     try {
       this.registerState = 'registered'
       this.token = ''
@@ -261,7 +244,7 @@ class XoaUpdater extends EventEmitter {
 
   async register (email, password, renew = false) {
     try {
-      const token = await this._call('register', {email, password, renew})
+      const token = {}//await this._call('register', {email, password, renew})
       this.registerState = 'registered'
       this.registerError = ''
       this.token = token
@@ -285,6 +268,7 @@ class XoaUpdater extends EventEmitter {
   }
 
   async requestTrial () {
+    console.log('>>>>>>>>>>>>>>>>>>>>>>begin requestTrial')
     const state = await this.xoaState()
     if (!state.state === 'ERROR') {
       throw new Error(state.message)
@@ -306,12 +290,13 @@ class XoaUpdater extends EventEmitter {
   async xoaState () {
     try {
       //const state = await this._call('xoaState')
+      console.log(">>>>>>>>>>>>>>begin xoaState<<<<<<<<<<<<<<")
       const license = await getLicense()
+      XOA_PLAN = license.edition 
       console.log(">>>>>>>>>>>>>>>>>>>>>>>>License")
       console.log(license)
       console.log(">>>>>>>>>>>>>>>>>>>>>>>>License")
-      let now = new Date()
-      let expire = now.setDate(now.getDate() + 30)
+      let expire = license.expire
       let trial = {plan: 'premium', end: expire}
       const state = {
         state: 'trustedTrial',
@@ -328,6 +313,7 @@ class XoaUpdater extends EventEmitter {
   }
 
   _xoaStateError (error) {
+    console.log('>>>>>>>>>>>>>>>>>>begin _xoaStateError')
     const message = error.message || String(error)
     this._xoaState = {
       state: 'ERROR',
@@ -339,24 +325,32 @@ class XoaUpdater extends EventEmitter {
   async _update (upgrade = false) {
     try {
       //const c = await this._open()
-      //this.log('info', 'Start ' + (upgrade ? 'upgrading' : 'updating' + '...'))
+      this.log('info', 'Start ' + (upgrade ? 'upgrading' : 'updating' + '...'))
       //c.notify('update', {upgrade})
+      console.log(">>>>>>begin _update<<<<<<<<<<<<<<")
 
       const license = await getLicense()
-      global.XOA_PLAN = 2
-      let expire = now.setDate(now.getDate() + 30);
+      console.log(">>>>>>>>>>>>>>>>>>>>>>>>License")
+      console.log(license)
+      console.log(">>>>>>>>>>>>>>>>>>>>>>>>License")
+      XOA_PLAN = license.edition 
+      let expire = license.expire 
       let trial = {plan: 'premium', end: expire}
       const state = {
         state: 'trustedTrial',
         message: 'You have a vStorage Appliance granted under trial. Your trial lasts until ' + new Date(trial.end).toLocaleString(),
         trial
       }
+      this._xoaState = state
     } catch (error) {
       this._waiting = false
+    } finally {
+      this.emit('trialState', assign({}, this._xoaState))
     }
   }
 
   async start () {
+    console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>updater is starting....")
     if (this.isStarted()) {
       return
     }
@@ -378,11 +372,12 @@ class XoaUpdater extends EventEmitter {
       }
       delete this._client
     }
+    console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>stooooooooooooooooooop")
     this.state('disconnected')
   }
 
   run () {
-    if (Date.now() - this._lastRun >= 24 * 60 * 60 * 1000) {
+    if (Date.now() - this._lastRun >= 1 * 60 * 60 * 1000) {
       this.update()
     }
   }
@@ -392,6 +387,7 @@ class XoaUpdater extends EventEmitter {
   }
 
   log (level, message) {
+    console.log('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>log')
     message = (message != null && message.message) || String(message)
     const date = new Date()
     this._log.unshift({
@@ -429,7 +425,7 @@ class XoaUpdater extends EventEmitter {
 
   async configure (config) {
     try {
-      this._configuration = await this._call('configure', config)
+      this._configuration = {}//await this._call('configure', config)
       this.update()
       return this._configuration
     } catch (error) {
@@ -451,3 +447,5 @@ export const connectStore = (store) => {
   xoaUpdater.on('registerState', registration => store.dispatch(xoaRegisterState(registration)))
   xoaUpdater.on('configuration', configuration => store.dispatch(xoaConfiguration(configuration)))
 }
+
+export {XOA_PLAN}

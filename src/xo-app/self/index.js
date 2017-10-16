@@ -63,6 +63,7 @@ import {
 } from './helpers'
 
 import Page from '../page'
+import { XOA_PLAN } from 'xoa-updater'
 
 // ===================================================================
 
@@ -676,7 +677,7 @@ export default class Self extends Component {
       header={HEADER}
       title='selfServicePage'
     >
-      {global.XOA_PLAN > 3
+      {XOA_PLAN > 3
         ? <div>
           <div className='mb-1'>
             <ActionButton

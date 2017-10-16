@@ -41,6 +41,7 @@ import {
   mapPlus,
   noop
 } from 'utils'
+import { XOA_PLAN } from 'xoa-updater'
 
 const SrColContainer = connectStore(() => ({
   container: createGetObject()
@@ -428,7 +429,7 @@ export default class Health extends Component {
   _getSrUrl = sr => `srs/${sr.id}`
 
   render () {
-    return global.XOA_PLAN > 3
+    return XOA_PLAN > 3
       ? <Container>
         <Row>
           <Col>

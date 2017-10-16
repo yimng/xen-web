@@ -11,8 +11,9 @@ import { Container, Row, Col } from 'grid'
 import {
   map
 } from 'lodash'
+import { XOA_PLAN } from 'xoa-updater'
 
-const ALLOW_INSTALL_SUPP_PACK = global.XOA_PLAN > 1
+const ALLOW_INSTALL_SUPP_PACK = XOA_PLAN > 1
 
 const forceReboot = host => restartHost(host, true)
 

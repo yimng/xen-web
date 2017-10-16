@@ -30,6 +30,7 @@ import {
   subscribeScheduleTable,
   subscribeUsers
 } from 'xo'
+import { XOA_PLAN } from 'xoa-updater'
 
 // ===================================================================
 
@@ -139,7 +140,7 @@ export default class Overview extends Component {
 
     const isScheduleUserMissing = this._getIsScheduleUserMissing()
 
-    return (global.XOA_PLAN > 3
+    return (XOA_PLAN > 3
       ? <Container>
         <Card>
           <CardHeader>

@@ -32,6 +32,7 @@ import {
 } from 'xo'
 
 import styles from './index.css'
+import { XOA_PLAN } from 'xoa-updater'
 
 // ===================================================================
 
@@ -159,7 +160,7 @@ export default class Overview extends Component {
     const users = state && state.users
     const nUsers = size(users)
 
-    return global.XOA_PLAN > 2
+    return XOA_PLAN > 2
         ? <Container>
           <Row>
             <Col mediumSize={4}>

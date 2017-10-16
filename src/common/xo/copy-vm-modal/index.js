@@ -7,6 +7,7 @@ import { Col } from '../../grid'
 import { SelectSr } from '../../select-objects'
 import { Toggle } from '../../form'
 import { injectIntl } from 'react-intl'
+import { XOA_PLAN } from 'xoa-updater'
 
 class CopyVmModalBody extends Component {
   state = { compress: false }
@@ -29,7 +30,7 @@ class CopyVmModalBody extends Component {
 
   render () {
     const { formatMessage } = this.props.intl
-    return global.XOA_PLAN > 2
+    return XOA_PLAN > 2
       ? <div>
         <SingleLineRow>
           <Col size={6}>{_('copyVmSelectSr')}</Col>

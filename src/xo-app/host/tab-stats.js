@@ -13,6 +13,7 @@ import {
   PifLineChart,
   LoadLineChart
 } from 'xo-line-chart'
+import { XOA_PLAN } from 'xoa-updater'
 
 export default class HostStats extends Component {
   constructor (props) {
@@ -91,7 +92,7 @@ export default class HostStats extends Component {
 
     return !stats
       ? <p>No stats.</p>
-      : global.XOA_PLAN > 2
+      : XOA_PLAN > 2
         ? <Container>
           <Row>
             <Col mediumSize={5}>

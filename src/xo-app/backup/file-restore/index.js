@@ -28,6 +28,7 @@ import {
 
 import RestoreFileModalBody from './restore-file-modal'
 import styles from './index.css'
+import { XOA_PLAN } from 'xoa-updater'
 
 const VM_COLUMNS = [
   {
@@ -115,7 +116,7 @@ export default class FileRestore extends Component {
       return <h2>{_('statusLoading')}</h2>
     }
 
-    return global.XOA_PLAN > 3
+    return XOA_PLAN > 3
       ? <Container>
         <h2>{_('restoreFiles')}</h2>
         {isEmpty(backupInfoByVm)

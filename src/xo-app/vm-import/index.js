@@ -36,6 +36,7 @@ import Page from '../page'
 import parseOvaFile from './ova'
 
 import styles from './index.css'
+import { XOA_PLAN } from 'xoa-updater'
 
 // ===================================================================
 
@@ -290,7 +291,7 @@ export default class Import extends Component {
     } = this.state
 
     return <Page header={HEADER} title='newImport' formatTitle>
-      {global.XOA_PLAN > 1
+      {XOA_PLAN > 1
         ? (
           <Container>
             <form id='import-form'>

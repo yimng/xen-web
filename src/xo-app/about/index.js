@@ -11,6 +11,7 @@ import { Container, Row, Col } from 'grid'
 import { connectStore, getXoaPlan } from 'utils'
 
 import pkg from '../../../package'
+import { XOA_PLAN } from 'xoa-updater'
 
 const HEADER = <Container>
   <Row>
@@ -51,7 +52,7 @@ export default class About extends Component {
           </Col>
         </Row>
       }
-        {global.XOA_PLAN > 4
+        {XOA_PLAN > 4
           ? <div>
             <Row>
               <Col>
@@ -77,7 +78,7 @@ export default class About extends Component {
               </Col>
             </Row>
           </div>
-          : +global.XOA_PLAN === 1
+          : +XOA_PLAN === 1
             ? <div>
               <Row>
                 <Col>

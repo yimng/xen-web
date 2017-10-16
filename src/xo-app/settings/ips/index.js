@@ -32,6 +32,7 @@ import {
   setIpPool,
   subscribeIpPools
 } from 'xo'
+import { XOA_PLAN } from 'xoa-updater'
 
 const FULL_WIDTH = { width: '100%' }
 const NETWORK_FORM_STYLE = { maxWidth: '40em' }
@@ -291,7 +292,7 @@ export default class Ips extends BaseComponent {
   ]
 
   render () {
-    if (global.XOA_PLAN < 4) {
+    if (XOA_PLAN < 4) {
       return <Container><Upgrade place='health' available={4} /></Container>
     }
 

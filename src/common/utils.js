@@ -24,6 +24,7 @@ import BaseComponent from './base-component'
 import invoke from './invoke'
 import store from './store'
 import { getObject } from './selectors'
+import { XOA_PLAN } from 'xoa-updater'
 
 export const EMPTY_ARRAY = Object.freeze([ ])
 export const EMPTY_OBJECT = Object.freeze({ })
@@ -205,7 +206,7 @@ export const firstDefined = function () {
 
 // Returns the current XOA Plan or the Plan name if number given
 export const getXoaPlan = plan => {
-  switch (plan || +global.XOA_PLAN) {
+  switch (plan || +XOA_PLAN) {
     case 1:
       return 'Free'
     case 2:

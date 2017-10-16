@@ -21,6 +21,7 @@ import {
   PoolPifLineChart,
   PoolLoadLineChart
 } from 'xo-line-chart'
+import { XOA_PLAN } from 'xoa-updater'
 
 @connectStore({
   hosts: createGetObjectsOfType('host').filter(
@@ -93,7 +94,7 @@ export default class PoolStats extends Component {
       useCombinedValues
     } = this.state
 
-    return global.XOA_PLAN > 2
+    return XOA_PLAN > 2
       ? stats
         ? <Container>
           <Row>

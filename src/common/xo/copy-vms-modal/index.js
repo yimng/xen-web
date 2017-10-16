@@ -14,6 +14,7 @@ import {
   buildTemplate,
   connectStore
 } from 'utils'
+import { XOA_PLAN } from 'xoa-updater'
 
 @connectStore(() => {
   const getVms = createGetObjectsOfType('VM').pick(
@@ -62,7 +63,7 @@ class CopyVmsModalBody extends BaseComponent {
   render () {
     const { formatMessage } = this.props.intl
     const { compress, namePattern, sr } = this.state
-    return global.XOA_PLAN > 2
+    return XOA_PLAN > 2
       ? <div>
         <SingleLineRow>
           <Col size={6}>{_('copyVmSelectSr')}</Col>

@@ -18,6 +18,7 @@ import {
   formatSize
 } from 'utils'
 
+import { XOA_PLAN } from 'xoa-updater'
 // ===================================================================
 
 // Columns order is defined by the attributes declaration order.
@@ -114,7 +115,7 @@ export default class Visualizations extends Component {
   )
 
   render () {
-    return global.XOA_PLAN > 3
+    return XOA_PLAN > 3
       ? <Container>
         <Row>
           <Col>

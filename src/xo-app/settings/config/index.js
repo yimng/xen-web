@@ -13,6 +13,7 @@ import {
   importLicense,
   exportConfig
 } from 'xo'
+import { XOA_PLAN } from 'xoa-updater'
 
 // ===================================================================
 
@@ -59,7 +60,7 @@ export default class Config extends Component {
     const { configFile } = this.state
 
     return <div>
-      {global.XOA_PLAN < 5
+      {XOA_PLAN < 5
         ? <div className='mb-1'>
           <h2><Icon icon='import' /> {_('importConfig')}</h2>
           <form id='import-form'>

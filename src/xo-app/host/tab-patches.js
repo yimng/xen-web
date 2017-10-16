@@ -14,6 +14,7 @@ import {
   isEmpty,
   isString
 } from 'lodash'
+import { XOA_PLAN } from 'xoa-updater'
 
 const MISSING_PATCH_COLUMNS = [
   {
@@ -160,7 +161,7 @@ export default class HostPatches extends Component {
     const { host, missingPatches, installAllPatches, installPatch } = this.props
     const { patches, columns } = this._getPatches()
     const hasMissingPatches = !isEmpty(missingPatches)
-    return global.XOA_PLAN > 1
+    return XOA_PLAN > 1
       ? <Container>
         <Row>
           <Col className='text-xs-right'>
