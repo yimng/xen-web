@@ -35,6 +35,7 @@ import {
   editJob,
   editSchedule
 } from 'xo'
+import { XOA_PLAN } from 'xoa-updater'
 
 // ===================================================================
 // FIXME: missing most of translation. Can't be done in a dumb way, some of the word are keyword for XO-Server parameters...

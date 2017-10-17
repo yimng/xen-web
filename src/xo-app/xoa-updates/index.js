@@ -70,67 +70,10 @@ const upgrade = () => xoaUpdater.upgrade()
 
 @injectIntl
 export default class XoaUpdates extends Component {
-  // These 3 inputs are "controlled" http://facebook.github.io/react/docs/forms.html#controlled-components
-  _handleProxyHostChange = event => this.setState({proxyHost: event.target.value || ''})
-  _handleProxyPortChange = event => this.setState({proxyPort: event.target.value || ''})
-  _handleProxyUserChange = event => this.setState({proxyUser: event.target.value || ''})
-
-  _handleConfigReset = () => {
-    const { configuration } = this.props
-    const { proxyPassword } = this.refs
-    proxyPassword.value = ''
-    this.setState(configuration)
-  }
-
-  _register = async () => {
-    const {
-      email,
-      password
-    } = this.state
-
-    const { registration } = this.props
-    const alreadyRegistered = (registration.state === 'registered')
-
-    if (alreadyRegistered) {
-      try {
-        await confirm({
-          title: _('alreadyRegisteredModal'),
-          body: <p>{_('alreadyRegisteredModalText', {email: registration.email})}</p>})
-      } catch (error) {
-        return
-      }
-    }
-    this.setState({ askRegisterAgain: false })
-    return xoaUpdater.register(email, password, alreadyRegistered)
-      .then(() => this.setState({ email: '', password: '' }))
-  }
-
-  _configure = async () => {
-    const {
-      proxyHost,
-      proxyPort,
-      proxyUser
-    } = this.state
-    const { proxyPassword } = this.refs
-    return xoaUpdater.configure({
-      proxyHost,
-      proxyPort,
-      proxyUser,
-      proxyPassword: proxyPassword.value
-    })
-    .then(config => {
-      this.setState({
-        proxyHost: undefined,
-        proxyPort: undefined,
-        proxyUser: undefined
-      })
-      proxyPassword.value = ''
-    })
-  }
 
   _trialAllowed = trial => trial.state === 'default' && exposeTrial(trial.trial)
-  _trialAvailable = trial => trial.state === 'default' && isTrialRunning(trial.trial)
-  _trialConsumed = trial => trial.state === 'default' && !isTrialRunning(trial.trial) && !exposeTrial(trial.trial)
+  _trialAvailable = trial => trial.state === 'trustedTrial' && isTrialRunning(trial.trial)
+  _trialConsumed = trial => trial.state === 'trustedTrial' && !isTrialRunning(trial.trial) && !exposeTrial(trial.trial)
   _updaterDown = trial => isEmpty(trial) || trial.state === 'ERROR'
   _toggleAskRegisterAgain = () => this.setState({ askRegisterAgain: !this.state.askRegisterAgain })
 
@@ -168,21 +111,8 @@ export default class XoaUpdates extends Component {
       state,
       trial
     } = this.props
-    let { configuration } = this.props // Configuration from the store
 
     const alreadyRegistered = (registration.state === 'registered')
-
-    configuration = assign({}, configuration)
-    const {
-      proxyHost,
-      proxyPort,
-      proxyUser
-    } = this.state // Edited non-saved configuration values override in view
-    let configEdited = false
-    proxyHost !== undefined && (configuration.proxyHost = proxyHost) && (configEdited = true)
-    proxyPort !== undefined && (configuration.proxyPort = proxyPort) && (configEdited = true)
-    proxyUser !== undefined && (configuration.proxyUser = proxyUser) && (configEdited = true)
-
     const { formatMessage } = this.props.intl
     return <Page header={HEADER} title='updateTitle' formatTitle>
       <Container>{+XOA_PLAN === 5
@@ -229,103 +159,26 @@ export default class XoaUpdates extends Component {
             <Col mediumSize={6}>
               <Card>
                 <CardHeader>
-                  {_('proxySettings')} {configEdited ? '*' : ''}
-                </CardHeader>
-                <CardBlock>
-                  <form>
-                    <fieldset>
-                      <div className='form-group'>
-                        <input
-                          className='form-control'
-                          placeholder={formatMessage(messages.proxySettingsHostPlaceHolder)}
-                          type='text'
-                          value={configuration.proxyHost}
-                          onChange={this._handleProxyHostChange}
-                        />
-                      </div>
-                      {' '}
-                      <div className='form-group'>
-                        <input
-                          className='form-control'
-                          placeholder={formatMessage(messages.proxySettingsPortPlaceHolder)}
-                          type='text'
-                          value={configuration.proxyPort}
-                          onChange={this._handleProxyPortChange}
-                        />
-                      </div>
-                      {' '}
-                      <div className='form-group'>
-                        <input
-                          className='form-control'
-                          placeholder={formatMessage(messages.proxySettingsUsernamePlaceHolder)}
-                          type='text'
-                          value={configuration.proxyUser}
-                          onChange={this._handleProxyUserChange}
-                        />
-                      </div>
-                      {' '}
-                      <div className='form-group'>
-                        <Password
-                          placeholder={formatMessage(messages.proxySettingsPasswordPlaceHolder)}
-                          ref='proxyPassword'
-                        />
-                      </div>
-                    </fieldset>
-                    <br />
-                    <fieldset>
-                      <ActionButton icon='save' btnStyle='primary' handler={this._configure}>{_('saveResourceSet')}</ActionButton>
-                      {' '}
-                      <Button onClick={this._handleConfigReset} disabled={!configEdited}>{_('resetResourceSet')}</Button>
-                    </fieldset>
-                  </form>
-                </CardBlock>
-              </Card>
-            </Col>
-            <Col mediumSize={6}>
-              <Card>
-                <CardHeader>
                   {_('registration')}
                 </CardHeader>
                 <CardBlock>
                   <strong>{registration.state}</strong>
                   {registration.email && <span> to {registration.email}</span>}
                   <span className='text-danger'> {registration.error}</span>
-                  {(!alreadyRegistered || this.state.askRegisterAgain)
-                    ? <form id='registrationForm'>
-                      <div className='form-group'>
-                        <input
-                          className='form-control'
-                          onChange={this.linkState('email')}
-                          placeholder={formatMessage(messages.updateRegistrationEmailPlaceHolder)}
-                          required
-                          type='text'
-                        />
-                      </div>
-                      {' '}
-                      <div className='form-group'>
-                        <Password
-                          disabled={!this.state.email}
-                          onChange={this.linkState('password')}
-                          placeholder={formatMessage(messages.updateRegistrationPasswordPlaceHolder)}
-                          required
-                        />
-                      </div>
-                      {' '}
-                      <ActionButton form='registrationForm' icon='success' btnStyle='primary' handler={this._register}>{_('register')}</ActionButton>
-                    </form>
-                    : <ActionButton icon='edit' btnStyle='primary' handler={this._toggleAskRegisterAgain}>{_('editRegistration')}</ActionButton>
-                  }
                   {+XOA_PLAN === 1 &&
                     <div>
                       <h2>{_('trial')}</h2>
                       {this._trialAllowed(trial) &&
                         <div>
-                          {registration.state !== 'registered' && <p>{_('trialRegistration')}</p>}
                           {registration.state === 'registered' &&
                             <ActionButton btnStyle='success' handler={this._startTrial} icon='trial'>{_('trialStartButton')}</ActionButton>
                           }
                         </div>
                       }
+                    </div>
+                  }
+                  {(XOA_PLAN > 1 && XOA_PLAN < 5) &&
+                    <div>
                       {this._trialAvailable(trial) &&
                         <p className='text-success'>{_('trialAvailableUntil', {date: new Date(trial.trial.end)})}</p>
                       }
@@ -334,7 +187,7 @@ export default class XoaUpdates extends Component {
                       }
                     </div>
                   }
-                  {(XOA_PLAN > 1 && XOA_PLAN < 5) &&
+                  {(XOA_PLAN < 5) &&
                     <div>
                       {trial.state === 'trustedTrial' &&
                         <p>{trial.message}</p>

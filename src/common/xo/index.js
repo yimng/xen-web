@@ -334,6 +334,9 @@ export const exportConfig = () => (
 
 // License --------------------------------------------------------------------------
 
+export const startTrial = () => (
+  _call('license.startTrial')
+)
 export const importLicense = license => (
   _call('license.importLicense').then(({ $sendTo: url }) =>
     request.post(url).send(license).then(response => {

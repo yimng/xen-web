@@ -14,6 +14,7 @@ import {
 } from 'store/actions'
 
 import {
+  startTrial,
   getLicense
 } from 'xo'
 
@@ -110,124 +111,6 @@ class XoaUpdater extends EventEmitter {
     this.emit('upgradeSuccessful', this._lowState && this._lowState.source)
   }
 
-  async _open () {
-    const openFailure = error => {
-      switch (true) {
-        case error instanceof AbortedConnection:
-          this.log('error', 'AbortedConnection')
-          break
-        case error instanceof ConnectionError:
-          this.log('error', 'ConnectionError')
-          break
-        default:
-          this.log('error', error)
-      }
-      delete this._client
-      this.state('disconnected')
-      throw error
-    }
-
-    const handleOpen = c => {
-      const middle = new EventEmitter()
-      const handleError = error => {
-        this.log('error', error.message)
-        this._lowState = error
-        this.state('error')
-        this._waiting = false
-        this.emit('error', error)
-      }
-
-      c.on('notification', n => middle.emit(n.method, n.params))
-      c.on('closed', () => middle.emit('disconnected'))
-
-      middle.on('print', ({content}) => {
-        Array.isArray(content) || (content = [content])
-        content.forEach(elem => this.log('info', elem))
-        this.emit('print', content)
-      })
-      middle.on('end', end => {
-        this._lowState = end
-        switch (this._lowState.state) {
-          case 'xoa-up-to-date':
-          case 'xoa-upgraded':
-          case 'updater-upgraded':
-          case 'installer-upgraded':
-            this.state('upToDate')
-            break
-          case 'xoa-upgrade-needed':
-          case 'updater-upgrade-needed':
-          case 'installer-upgrade-needed':
-            this.state('upgradeNeeded')
-            break
-          case 'register-needed':
-            this.state('registerNeeded')
-            break
-          default:
-            this.state('error')
-        }
-        this.log(end.level, end.message)
-        this._lastRun = Date.now()
-        this._waiting = false
-        this.emit('end', end)
-        if (this._lowState === 'register-needed') {
-          this.isRegistered()
-        }
-        if (this._lowState.state === 'updater-upgraded' || this._lowState.state === 'installer-upgraded') {
-          this.update()
-        } else if (this._lowState.state === 'xoa-upgraded') {
-          this._upgradeSuccessful()
-        }
-        this.xoaState()
-      })
-      middle.on('warning', warning => {
-        this.log('warning', warning.message)
-        this.emit('warning', warning)
-      })
-      middle.on('server-error', handleError)
-      middle.on('disconnected', () => {
-        this._lowState = null
-        this.state('disconnected')
-        this._waiting = false
-        this.log('warning', 'Lost connection with xoa-updater')
-        middle.emit('reconnect_failed') // No reconnecting attempts implemented so far
-      })
-      middle.on('reconnect_failed', () => {
-        this._waiting = false
-        middle.removeAllListeners()
-        this._client.removeAllListeners()
-        if (this._client.status !== 'closed') {
-          this._client.close()
-        }
-        delete this._client
-        const message = 'xoa-updater could not be reached'
-        this._xoaStateError({message})
-        this.log('error', message)
-        this.emit('disconnected')
-      })
-
-      this.update()
-      this.isRegistered()
-      this.getConfiguration()
-      return c
-    }
-
-    if (!this._client) {
-      try {
-        this._client = new Client(adaptUrl(getCurrentUrl()))
-        await this._client.open()
-        handleOpen(this._client)
-      } catch (error) {
-        openFailure(error)
-      }
-    }
-    const c = this._client
-    if (c.status === 'open') {
-      return c
-    } else {
-      return eventToPromise.multi(c, ['open'], ['closed', 'error'])
-        .then(() => c)
-    }
-  }
 
   async isRegistered () {
     console.log('>>>>>>>>>>>>>>>>>>>>>>>>>>>isRegistered')
@@ -243,33 +126,12 @@ class XoaUpdater extends EventEmitter {
 
 
   async register (email, password, renew = false) {
-    try {
-      const token = {}//await this._call('register', {email, password, renew})
-      this.registerState = 'registered'
-      this.registerError = ''
-      this.token = token
-      return token
-    } catch (error) {
-      if (!renew) {
-        delete this.token
-      }
-      if (error.code && error.code === 1) {
-        this.registerError = 'Authentication failed'
-      } else {
-        this.registerError = error.message
-        this.registerState = 'error'
-      }
-    } finally {
-      this.emit('registerState', {state: this.registerState, email: (this.token && this.token.registrationEmail) || '', error: this.registerError})
-      if (this.registerState === 'registered') {
-        this.update()
-      }
-    }
   }
 
   async requestTrial () {
     console.log('>>>>>>>>>>>>>>>>>>>>>>begin requestTrial')
-    const state = await this.xoaState()
+    const state = await this._update()
+    console.log('>>>>>>>>>>>>>>>>>>>>>>state' + state)
     if (!state.state === 'ERROR') {
       throw new Error(state.message)
     }
@@ -277,13 +139,9 @@ class XoaUpdater extends EventEmitter {
       throw new Error('You are already under trial')
     }
     try {
-      //return this._call('requestTrial', {trialPlan: 'premium'})
-      let now = new Date();
-      let expire = now.setDate(now.getDate() + 30);
-      let trial = {plan: 'premium', end: expire}
-      return trial 
+      await startTrial()
     } finally {
-      this.xoaState()
+      this._update()
     }
   }
 
@@ -334,14 +192,40 @@ class XoaUpdater extends EventEmitter {
       console.log(license)
       console.log(">>>>>>>>>>>>>>>>>>>>>>>>License")
       XOA_PLAN = license.edition 
-      let expire = license.expire 
-      let trial = {plan: 'premium', end: expire}
-      const state = {
-        state: 'trustedTrial',
-        message: 'You have a vStorage Appliance granted under trial. Your trial lasts until ' + new Date(trial.end).toLocaleString(),
-        trial
+      if (license.edition > 1) {
+        let expire = license.expire 
+        let trial = {plan: 'premium', end: expire}
+        if(isTrialRunning(trial)) {
+          const state = {
+            state: 'trustedTrial',
+            message: 'You have a vStorage Appliance granted under license. Your license lasts until ' + new Date(trial.end).toLocaleString(),
+            trial
+          }
+          this._xoaState = state
+          return state
+        } else {
+          XOA_PLAN = 1
+          const state = {
+            state: 'trustedTrial',
+            message: 'Your license has been expired',
+            trial
+          }
+          this._xoaState = state
+          return state
+        }
+      } else {
+        let st = ''
+        if (license.state === 'default') {
+          st = 'default'
+        }
+        const state = {
+          state: st,
+          message: license.message,
+          trial: {plan: 'free'}
+        }
+        this._xoaState = state
+        return state
       }
-      this._xoaState = state
     } catch (error) {
       this._waiting = false
     } finally {
@@ -354,7 +238,7 @@ class XoaUpdater extends EventEmitter {
     if (this.isStarted()) {
       return
     }
-    await this.xoaState()
+    await this._update()
     await this.isRegistered()
     this._interval = setInterval(() => this.run(), 60 * 60 * 1000)
     this.run()
@@ -377,6 +261,7 @@ class XoaUpdater extends EventEmitter {
   }
 
   run () {
+    console.log('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>runing<<<<<<<<<<<<<<<<<<<<<<')
     if (Date.now() - this._lastRun >= 1 * 60 * 60 * 1000) {
       this.update()
     }

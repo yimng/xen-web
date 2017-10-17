@@ -2203,7 +2203,7 @@ export default {
   trialStartButton: '开始试用',
 
   // Original text: "You can use a trial version until {date, date, medium}. Upgrade your appliance to get it."
-  trialAvailableUntil: '你可以使用试用版本直到{date, date, medium}。更新你的设备来获取',
+  trialAvailableUntil: '你可以使用此版本直到{date, date, medium}。更新你的设备来获取',
 
   // Original text: "Your trial has been ended. Contact us or downgrade to Free version"
   trialConsumed: '你的使用已经结束，联系我们或下载免费版本',
