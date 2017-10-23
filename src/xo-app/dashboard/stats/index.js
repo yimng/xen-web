@@ -433,6 +433,7 @@ const Stats = () => XOA_PLAN > 2
       title={_('weeklyCharts')}
     />
   </div>
-  : <Container><Upgrade place='dashboardStats' available={3} /></Container>
+  : <Container><Upgrade place='dashboardStats' available={4} /></Container>
 
 export { Stats as default }
+

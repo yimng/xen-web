@@ -194,7 +194,7 @@ export default ({
       </table>
       {!ALLOW_INSTALL_SUPP_PACK && [
         <h3>{_('supplementalPackNew')}</h3>,
-        <Container><Upgrade place='supplementalPacks' available={2} /></Container>
+        <Container><Upgrade place='supplementalPacks' available={4} /></Container>
       ]}
     </Col>
   </Row>

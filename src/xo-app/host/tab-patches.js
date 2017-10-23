@@ -200,6 +200,7 @@ export default class HostPatches extends Component {
           </Col>
         </Row>
       </Container>
-      : <Container><Upgrade place='hostPatches' available={2} /></Container>
+      : <Container><Upgrade place='hostPatches' available={4} /></Container>
   }
 }
+

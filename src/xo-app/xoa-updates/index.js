@@ -3,6 +3,7 @@ import ActionButton from 'action-button'
 import ansiUp from 'ansi_up'
 import assign from 'lodash/assign'
 import Button from 'button'
+import Dropzone from 'dropzone'
 import Component from 'base-component'
 import Icon from 'icon'
 import isEmpty from 'lodash/isEmpty'
@@ -18,49 +19,32 @@ import { Container, Row, Col } from 'grid'
 import { error } from 'notification'
 import { injectIntl } from 'react-intl'
 import { Password } from 'form'
-import { serverVersion } from 'xo'
+import { serverVersion, importLicense } from 'xo'
 
 import pkg from '../../../package'
 import { XOA_PLAN } from 'xoa-updater'
+import {
+  formatSize
+} from 'utils'
 
-let updateSource
-const promptForReload = (source, force) => {
-  if (force || (updateSource && source !== updateSource)) {
-    confirm({
-      title: _('promptUpgradeReloadTitle'),
-      body: <p>{_('promptUpgradeReloadMessage')}</p>
-    }).then(() => window.location.reload())
-  }
-  updateSource = source
-}
 
-if (+XOA_PLAN < 5) {
-  xoaUpdater.start()
-  xoaUpdater.on('upgradeSuccessful', source => promptForReload(source, !source))
-  xoaUpdater.on('upToDate', promptForReload)
-}
 
 const HEADER = <Container>
-  <h2><Icon icon='menu-update' /> {_('updatePage')}</h2>
+  <h2><Icon icon='menu-update' /> {_('LicensePage')}</h2>
 </Container>
 
 // FIXME: can't translate
 const states = {
-  disconnected: 'Disconnected',
-  updating: 'Updating',
-  upgrading: 'Upgrading',
+  free: 'Free',
   upToDate: 'Up to Date',
   upgradeNeeded: 'Upgrade required',
-  registerNeeded: 'Registration required',
   error: 'An error occured'
 }
 
 const update = () => xoaUpdater.update()
-const upgrade = () => xoaUpdater.upgrade()
 
 @connectStore((state) => {
   return {
-    configuration: state.xoaConfiguration,
     log: state.xoaUpdaterLog,
     registration: state.xoaRegisterState,
     state: state.xoaUpdaterState,
@@ -75,7 +59,14 @@ export default class XoaUpdates extends Component {
   _trialAvailable = trial => trial.state === 'trustedTrial' && isTrialRunning(trial.trial)
   _trialConsumed = trial => trial.state === 'trustedTrial' && !isTrialRunning(trial.trial) && !exposeTrial(trial.trial)
   _updaterDown = trial => isEmpty(trial) || trial.state === 'ERROR'
-  _toggleAskRegisterAgain = () => this.setState({ askRegisterAgain: !this.state.askRegisterAgain })
+
+  componentWillMount () {
+    this.setState({ askRegisterAgain: false, importStatus: 'noFile' })
+    serverVersion.then(serverVersion => {
+      this.setState({ serverVersion })
+    })
+    update()
+  }
 
   _startTrial = async () => {
     try {
@@ -89,15 +80,55 @@ export default class XoaUpdates extends Component {
     } catch (_) {}
   }
 
-  componentWillMount () {
-    this.setState({ askRegisterAgain: false })
-    serverVersion.then(serverVersion => {
-      this.setState({ serverVersion })
+  _importLicense = () => {
+    this.setState({ importStatus: 'start' }, () =>
+      importLicense(this.state.configFile).then(
+        (response) => {
+          this.setState({ configFile: undefined, importStatus: response.statusText })
+          update()
+        },
+        (error) => {
+          this.setState({ configFile: undefined, importStatus: 'importError'})
+        }
+      )
+    )
+  }
+
+  _handleDrop = files =>
+    this.setState({
+      configFile: files && files[0],
+      importStatus: 'selectedFile'
     })
-    update()
+
+  _unselectFile = () => this.setState({ configFile: undefined, importStatus: 'noFile' })
+
+  _renderImportStatus = () => {
+    const { configFile, importStatus } = this.state
+
+    switch (importStatus) {
+      case 'noFile':
+        return _('noLicenseFile')
+      case 'selectedFile':
+        return <span>{`${configFile.name} (${formatSize(configFile.size)})`}</span>
+      case 'start':
+        return <Icon icon='loading' />
+      case 'OK':
+        return <span className='text-success'>{_('importLicenseSuccess')}</span>
+      case 'invalidsig':
+        return <span className='text-danger'>{('invalid signature')}</span>
+      case 'invalidfinger':
+        return <span className='text-danger'>{('invalid finger print')}</span>
+      case 'untrusted':
+        return <span className='text-danger'>{('license is untrusted')}</span>
+      case 'importError':
+        return <span className='text-danger'>{_('importLicenseError')}</span>
+      default:
+        return <span className='text-danger'>{('Unknow error')}</span>
+    }
   }
 
   render () {
+    const { configFile } = this.state
     const textClasses = {
       info: 'text-info',
       success: 'text-success',
@@ -126,6 +157,41 @@ export default class XoaUpdates extends Component {
             <Col mediumSize={12}>
               <Card>
                 <CardHeader>
+                  <Icon icon='import' /> {_('importLicense')}
+                </CardHeader>
+                <CardBlock>
+                  <div className='mb-1'>
+                    <form id='import-form'>
+                      <Dropzone onDrop={this._handleDrop} message={_('importLicenseTip')} />
+                      {this._renderImportStatus()}
+                      <div className='form-group pull-right'>
+                        <ActionButton
+                          btnStyle='primary'
+                          className='mr-1'
+                          disabled={!configFile}
+                          form='import-form'
+                          handler={this._importLicense}
+                          icon='import'
+                          type='submit'
+                        >
+                          {_('importConfig')}
+                        </ActionButton>
+                        <Button
+                          onClick={this._unselectFile}
+                        >
+                          {_('importVmsCleanList')}
+                        </Button>
+                      </div>
+                    </form>
+                  </div>
+                </CardBlock>
+              </Card>
+            </Col>
+          </Row>
+          <Row>
+            <Col mediumSize={6}>
+              <Card>
+                <CardHeader>
                   <UpdateTag /> {states[state]}
                 </CardHeader>
                 <CardBlock>
@@ -135,13 +201,6 @@ export default class XoaUpdates extends Component {
                     handler={update}
                     icon='refresh'>
                     {_('refresh')}
-                  </ActionButton>
-                  {' '}
-                  <ActionButton
-                    btnStyle='success'
-                    handler={upgrade}
-                    icon='upgrade'>
-                    {_('upgrade')}
                   </ActionButton>
                   <hr />
                   <div>
@@ -154,12 +213,10 @@ export default class XoaUpdates extends Component {
                 </CardBlock>
               </Card>
             </Col>
-          </Row>
-          <Row>
             <Col mediumSize={6}>
               <Card>
                 <CardHeader>
-                  {_('registration')}
+                  {_('licenseinfo')}
                 </CardHeader>
                 <CardBlock>
                   <strong>{registration.state}</strong>
@@ -167,7 +224,6 @@ export default class XoaUpdates extends Component {
                   <span className='text-danger'> {registration.error}</span>
                   {+XOA_PLAN === 1 &&
                     <div>
-                      <h2>{_('trial')}</h2>
                       {this._trialAllowed(trial) &&
                         <div>
                           {registration.state === 'registered' &&
@@ -241,7 +297,6 @@ const RegisterAlarm = () => <Icon icon='not-registered' className='text-warning'
 
 export const UpdateTag = connectStore((state) => {
   return {
-    configuration: state.xoaConfiguration,
     log: state.xoaUpdaterLog,
     registration: state.xoaRegisterState,
     state: state.xoaUpdaterState,
@@ -250,16 +305,16 @@ export const UpdateTag = connectStore((state) => {
 })(props => {
   const { state } = props
   const components = {
-    'disconnected': <UpdateError />,
-    'connected': <UpdateWarning />,
+    'free': <UpdateError />,
+    'updating': <UpdateWarning />,
     'upToDate': <UpdateSuccess />,
     'upgradeNeeded': <UpdateAlert />,
     'registerNeeded': <RegisterAlarm />,
     'error': <UpdateAlarm />
   }
   const tooltips = {
-    'disconnected': _('noUpdateInfo'),
-    'connected': _('waitingUpdateInfo'),
+    'free': _('noUpdateInfo'),
+    'updating': _('waitingUpdateInfo'),
     'upToDate': _('upToDate'),
     'upgradeNeeded': _('mustUpgrade'),
     'registerNeeded': _('registerNeeded'),

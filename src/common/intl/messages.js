@@ -1427,8 +1427,17 @@ var messages = {
   xosanInstallPack: 'Install {pack} v{version}?',
   xosanNoPackFound: 'No compatible VSSAN pack found for your vGate versions.',
   xosanPackRequirements: 'At least one of these version requirements must be satisfied by all the hosts in this pool:',
-  CreatedbyVS: 'Create by VS'
+  CreatedbyVS: 'Create by VS',
 
+  // License
+  importLicense: 'Import License',
+  importLicenseTip: 'Try dropping a license file here, or click to select a license file to upload.',
+  noLicenseFile: 'no license file selected',
+  importLicenseSuccess: 'License file successfully imported',
+  importLicenseError: 'Error while importing license file',
+  licenseinfo: 'license information',
+  LicensePage: 'License Page',
+  requestLicense: 'Request License'
 }
 forEach(messages, function (message, id) {
   if (isString(message)) {

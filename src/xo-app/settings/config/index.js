@@ -10,7 +10,6 @@ import {
 } from 'utils'
 import {
   importConfig,
-  importLicense,
   exportConfig
 } from 'xo'
 import { XOA_PLAN } from 'xoa-updater'
@@ -24,7 +23,7 @@ export default class Config extends Component {
 
   _importConfig = () => {
     this.setState({ importStatus: 'start' }, () =>
-      importLicense(this.state.configFile).then(
+      importConfig(this.state.configFile).then(
         () => this.setState({ configFile: undefined, importStatus: 'end' }),
         () => this.setState({ configFile: undefined, importStatus: 'importError' })
       )

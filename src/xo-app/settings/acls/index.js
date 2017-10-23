@@ -268,6 +268,7 @@ export default class Acls extends Component {
         <br />
         <AclTable />
       </Container>
-    : <Container><Upgrade place='dashboard' available={3} /></Container>
+    : <Container><Upgrade place='dashboard' available={4} /></Container>
   }
 }
+

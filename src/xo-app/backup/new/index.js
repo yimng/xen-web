@@ -225,8 +225,8 @@ const CONTINUOUS_REPLICATION_SCHEMA = {
 //let REQUIRED_XOA_PLAN
 //if (XOA_PLAN < 4) {
  let  REQUIRED_XOA_PLAN = {
-    deltaBackup: 3,
-    disasterRecovery: 3,
+    deltaBackup: 4,
+    disasterRecovery: 4,
     continuousReplication: 4
   }
 //}
@@ -666,7 +666,7 @@ export default class New extends Component {
                   {XOA_PLAN < 4 && backupInfo && XOA_PLAN < REQUIRED_XOA_PLAN[backupInfo.jobKey]
                     ? <Upgrade place='newBackup' available={REQUIRED_XOA_PLAN[backupInfo.jobKey]} />
                     : (smartBackupMode && XOA_PLAN < 3
-                      ? <Upgrade place='newBackup' available={3} />
+                      ? <Upgrade place='newBackup' available={4} />
                       : <fieldset className='pull-right pt-1'>
                         <ActionButton
                           btnStyle='primary'

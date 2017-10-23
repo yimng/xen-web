@@ -368,6 +368,7 @@ export default class Overview extends Component {
             </Col>
           </Row>
         </Container>
-        : <Container><Upgrade place='dashboard' available={3} /></Container>
+        : <Container><Upgrade place='dashboard' available={4} /></Container>
   }
 }
+

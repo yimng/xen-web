@@ -2011,7 +2011,7 @@ export default {
   trialReadyModal: '准备试用？',
 
   // Original text: "During the trial period, VSA need to have a working internet connection. This limitation does not apply for our paid plans!"
-  trialReadyModalText: '在试用期内，VSA需要Internet连接才能正常使用，如果您正式付费将不受此限制',
+  trialReadyModalText: '在试用期内，vStorage有30天的时间限制，如果您正式付费将不受此30天限制',
 
   // Original text: "Host"
   serverHost: '主机',
@@ -2203,7 +2203,7 @@ export default {
   trialStartButton: '开始试用',
 
   // Original text: "You can use a trial version until {date, date, medium}. Upgrade your appliance to get it."
-  trialAvailableUntil: '你可以使用此版本直到{date, date, medium}。更新你的设备来获取',
+  trialAvailableUntil: '你可以使用此版本直到{date, date, medium}。',
 
   // Original text: "Your trial has been ended. Contact us or downgrade to Free version"
   trialConsumed: '你的使用已经结束，联系我们或下载免费版本',
@@ -2502,4 +2502,13 @@ export default {
   remoteSmbPlaceHolderDomain: '域',
   remoteSmbPlaceHolderAddressShare: '<address>\\<share> *',
   remotePlaceHolderPassword: 'password(fill to edit)',
+  // License
+  importLicense: '导入授权文件',
+  importLicenseTip: '尝试在这里放置许可证文件，或单击以选择要上传的许可证文件。',
+  noLicenseFile: '没有选择许可证文件',
+  importLicenseSuccess: '许可证文件已成功导入',
+  importLicenseError: '导入许可证文件失败',
+  licenseinfo: '许可证信息',
+  LicensePage: '许可证授权',
+  requestLicense: '申请许可证授权'
 }

@@ -280,6 +280,7 @@ export default class Restore extends Component {
           </div>
         }
       </Container>
-      : <Container><Upgrade place='restoreBackup' available={2} /></Container>
+      : <Container><Upgrade place='restoreBackup' available={4} /></Container>
   }
 }
+

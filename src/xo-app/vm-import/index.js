@@ -374,7 +374,7 @@ export default class Import extends Component {
             )}
             </form>
           </Container>
-      ) : <Container><Upgrade place='vmImport' available={2} /></Container>
+      ) : <Container><Upgrade place='vmImport' available={4} /></Container>
     }
     </Page>
   }

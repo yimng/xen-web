@@ -147,7 +147,7 @@ export default injectIntl(
             </Row>
           </Container>
           : <Container>
-            <Upgrade place='vmStats' available={3} />
+            <Upgrade place='vmStats' available={4} />
           </Container>
     }
   }

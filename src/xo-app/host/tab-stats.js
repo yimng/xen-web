@@ -143,6 +143,7 @@ export default class HostStats extends Component {
             </Col>
           </Row>
         </Container>
-        : <Container><Upgrade place='hostStats' available={3} /></Container>
+        : <Container><Upgrade place='hostStats' available={4} /></Container>
   }
 }
+

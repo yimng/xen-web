@@ -339,15 +339,15 @@ export const startTrial = () => (
 )
 export const importLicense = license => (
   _call('license.importLicense').then(({ $sendTo: url }) =>
-    request.post(url).send(license).then(response => {
-      if (response.status !== 200) {
-        throw new Error('license import failed')
-      }
-    })
+    request.post(url).send(license)
   )
 )
 export const getLicense = () => (
   _call('license.getLicense')
+)
+
+export const applyLicense = () => (
+  _call('license.applyLicense').then(({$getFrom: url}) => {window.location = `.${url}` })
 )
 
 // Server ------------------------------------------------------------

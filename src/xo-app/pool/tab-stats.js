@@ -149,6 +149,7 @@ export default class PoolStats extends Component {
           </Row>
         </Container>
         : <p>{_('poolNoStats')}</p>
-      : <Container><Upgrade place='hostStats' available={3} /></Container>
+      : <Container><Upgrade place='hostStats' available={4} /></Container>
   }
 }
+

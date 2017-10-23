@@ -98,7 +98,7 @@ class CopyVmsModalBody extends BaseComponent {
           </Col>
         </SingleLineRow>
       </div>
-      : <div><Upgrade place='vmCopy' available={3} /></div>
+      : <div><Upgrade place='vmCopy' available={4} /></div>
   }
 }
 export default injectIntl(CopyVmsModalBody, { withRef: true })
