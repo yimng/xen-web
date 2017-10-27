@@ -7,10 +7,13 @@ import propTypes from './prop-types-decorator'
 import { Card, CardHeader, CardBlock } from './card'
 import { connectStore, getXoaPlan } from './utils'
 import { isAdmin } from 'selectors'
-import { XOA_PLAN } from 'xoa-updater'
+import xoaUpdater, { XOA_PLAN } from 'xoa-updater'
 import Button from 'button'
 import {applyLicense} from 'xo'
 
+if (+XOA_PLAN < 5) {
+  xoaUpdater.start()
+}
 
 const Upgrade = propTypes({
   available: propTypes.number,

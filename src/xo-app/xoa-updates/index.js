@@ -11,7 +11,7 @@ import map from 'lodash/map'
 import Page from '../page'
 import React from 'react'
 import Tooltip from 'tooltip'
-import xoaUpdater, { exposeTrial, isTrialRunning } from 'xoa-updater'
+import xoaUpdater, { XOA_PLAN, exposeTrial, isTrialRunning } from 'xoa-updater'
 import { confirm } from 'modal'
 import { connectStore } from 'utils'
 import { Card, CardBlock, CardHeader } from 'card'
@@ -22,11 +22,13 @@ import { Password } from 'form'
 import { serverVersion, importLicense } from 'xo'
 
 import pkg from '../../../package'
-import { XOA_PLAN } from 'xoa-updater'
 import {
   formatSize
 } from 'utils'
 
+if (+XOA_PLAN < 5) {
+  xoaUpdater.start()
+}
 
 
 const HEADER = <Container>
@@ -35,9 +37,9 @@ const HEADER = <Container>
 
 // FIXME: can't translate
 const states = {
-  free: 'Free',
-  upToDate: 'Up to Date',
-  upgradeNeeded: 'Upgrade required',
+  free: _('free'),
+  upToDate: _('upToDate'),
+  upgradeNeeded: _('upgradeNeeded'),
   error: 'An error occured'
 }
 
@@ -143,7 +145,6 @@ export default class XoaUpdates extends Component {
       trial
     } = this.props
 
-    const alreadyRegistered = (registration.state === 'registered')
     const { formatMessage } = this.props.intl
     return <Page header={HEADER} title='updateTitle' formatTitle>
       <Container>{+XOA_PLAN === 5

@@ -1430,6 +1430,7 @@ var messages = {
   CreatedbyVS: 'Create by VS',
 
   // License
+  free: 'Free edition',
   importLicense: 'Import License',
   importLicenseTip: 'Try dropping a license file here, or click to select a license file to upload.',
   noLicenseFile: 'no license file selected',

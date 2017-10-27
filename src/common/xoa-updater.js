@@ -57,16 +57,12 @@ class XoaUpdater extends EventEmitter {
     super()
     this._waiting = false
     this._log = []
-    this._lastRun = 0
-    this._lowState = null
     this.state('disconnected')
-    this.registerError = ''
-    this._configuration = {}
   }
 
   state (state) {
     this._state = state
-    this.emit(state, this._lowState && this._lowState.source)
+    this.emit(state, this._state)
   }
 
   async update () {
@@ -83,7 +79,7 @@ class XoaUpdater extends EventEmitter {
       this.token = ''
       return token
     } catch (error) {
-      update()
+      this.update()
     } finally {
       this.emit('registerState', {state: this.registerState, email: 'vStorage@halsign.com', error: ''})
     }
@@ -151,7 +147,7 @@ class XoaUpdater extends EventEmitter {
         return state
       }
     } catch (error) {
-      this.state('error')
+      //this.state('error')
     } finally {
       this._waiting = false
       this.emit('trialState', assign({}, this._xoaState))
@@ -162,10 +158,9 @@ class XoaUpdater extends EventEmitter {
     if (this.isStarted()) {
       return
     }
-    console.log("startttttttttttttttttttttttttttttt")
     await this._update()
     await this.isRegistered()
-    this._interval = setInterval(() => this.run(),60 * 60 * 1000)
+    this._interval = setInterval(() => this.run(), 60 * 60 * 1000)
     this.run()
   }
 
@@ -203,7 +198,6 @@ class XoaUpdater extends EventEmitter {
 }
 
 const xoaUpdater = new XoaUpdater()
-xoaUpdater.start()
 
 export default xoaUpdater
 

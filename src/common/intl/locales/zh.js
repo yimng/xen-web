@@ -2218,7 +2218,7 @@ export default {
   waitingUpdateInfo: '更新信息可能可用',
 
   // Original text: "Your VSA is up-to-date"
-  upToDate: '你的VSA是最新的',
+  upToDate: '你的vStorage是最新的',
 
   // Original text: "You need to update your VSA (new version is available)"
   mustUpgrade: '你需要更新你的VSA（有新版本可用）',
@@ -2503,6 +2503,7 @@ export default {
   remoteSmbPlaceHolderAddressShare: '<address>\\<share> *',
   remotePlaceHolderPassword: 'password(fill to edit)',
   // License
+  free: '免费版本',
   importLicense: '导入授权文件',
   importLicenseTip: '尝试在这里放置许可证文件，或单击以选择要上传的许可证文件。',
   noLicenseFile: '没有选择许可证文件',
@@ -2510,5 +2511,6 @@ export default {
   importLicenseError: '导入许可证文件失败',
   licenseinfo: '许可证信息',
   LicensePage: '许可证授权',
-  requestLicense: '申请许可证授权'
+  requestLicense: '申请许可证授权',
+  refresh: '刷新'
 }
